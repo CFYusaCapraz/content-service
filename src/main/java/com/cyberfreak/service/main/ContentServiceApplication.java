@@ -1,4 +1,4 @@
-package com.cyberfreak.service;
+package com.cyberfreak.service.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
