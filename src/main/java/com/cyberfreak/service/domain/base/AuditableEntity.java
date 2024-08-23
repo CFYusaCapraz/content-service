@@ -1,5 +1,7 @@
 package com.cyberfreak.service.domain.base;
 
+import com.cyberfreak.service.domain.mapper.EntityMapper;
+import com.cyberfreak.service.dto.base.AuditableDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AuditableEntity extends BaseEntity {
+public abstract class AuditableEntity<Entity extends AuditableEntity<Entity, DTO>, DTO extends AuditableDto> extends BaseEntity<Entity, DTO> implements EntityMapper<Entity, DTO> {
 
     @Column(name = "creation_time", nullable = false, updatable = false)
     private LocalDateTime creationTime;
@@ -21,8 +23,8 @@ public abstract class AuditableEntity extends BaseEntity {
     @Column(name = "modification_time")
     private LocalDateTime modificationTime;
 
-    @Column(name = "deleted_time", updatable = false)
-    private LocalDateTime deletedTime;
+    @Column(name = "deletion_time", updatable = false)
+    private LocalDateTime deletionTime;
 
     @Column(name = "created_by", nullable = false, updatable = false)
     private String createdBy;
@@ -32,4 +34,8 @@ public abstract class AuditableEntity extends BaseEntity {
 
     @Column(name = "deleted_by", updatable = false)
     private String deletedBy;
+
+    public abstract DTO toDTO();
+
+    public abstract Entity fromDTO(DTO referenceDTO);
 }

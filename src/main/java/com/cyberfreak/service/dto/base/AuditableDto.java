@@ -1,6 +1,7 @@
 package com.cyberfreak.service.dto.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,11 +18,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class AuditableEntityDto extends BaseEntityDto implements Serializable {
+public abstract class AuditableDto extends BaseDto implements Serializable {
+
+    @NotNull
     private LocalDateTime creationTime;
+
     private LocalDateTime modificationTime;
+
     private LocalDateTime deletedTime;
+
+    @NotNull
     private String createdBy;
+
     private String modifiedBy;
+
     private String deletedBy;
 }

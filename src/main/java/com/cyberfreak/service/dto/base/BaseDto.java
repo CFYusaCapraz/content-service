@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class BaseEntityDto implements Serializable {
+public abstract class BaseDto implements Serializable {
 
     @NotNull
     @Positive

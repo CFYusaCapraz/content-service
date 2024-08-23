@@ -1,7 +1,8 @@
 package com.cyberfreak.service.domain.base;
 
 import com.cyberfreak.service.domain.listeners.BaseEntityListener;
-import com.cyberfreak.service.dto.base.BaseEntityDto;
+import com.cyberfreak.service.domain.mapper.EntityMapper;
+import com.cyberfreak.service.dto.base.BaseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Setter
 @MappedSuperclass
 @EntityListeners(BaseEntityListener.class)
-public abstract class BaseEntity {
+public abstract class BaseEntity<Entity extends BaseEntity<Entity, DTO>, DTO extends BaseDto> implements EntityMapper<Entity, DTO> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,9 @@ public abstract class BaseEntity {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = Boolean.FALSE;
 
-    public abstract <T extends BaseEntityDto> T toDTO();
+    @Override
+    public abstract DTO toDTO();
 
-    public abstract <T extends BaseEntityDto, V extends BaseEntity> V fromDTO(T referenceDTO);
+    @Override
+    public abstract Entity fromDTO(DTO referenceDTO);
 }
