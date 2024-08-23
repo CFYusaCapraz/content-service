@@ -25,7 +25,7 @@ public abstract class AuditableDto extends BaseDto implements Serializable {
 
     private LocalDateTime modificationTime;
 
-    private LocalDateTime deletedTime;
+    private LocalDateTime deletionTime;
 
     @NotNull
     private String createdBy;
