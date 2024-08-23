@@ -1,3 +1,8 @@
 spring:
   application:
     name: content-service
+  datasource:
+    username: ${PSQL_DB_USERNAME}
+    password: ${PSQL_DB_PASSWORD}
+    url: jdbc:postgresql://${PSQL_SERVER_HOST}:${PSQL_SERVER_PORT}/${PSQL_DB_NAME}
+    driver-class-name: org.postgresql.Driver
