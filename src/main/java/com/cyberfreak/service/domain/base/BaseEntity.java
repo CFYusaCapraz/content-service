@@ -1,5 +1,6 @@
 package com.cyberfreak.service.domain.base;
 
+import com.cyberfreak.service.domain.listeners.BaseEntityListener;
 import com.cyberfreak.service.dto.base.BaseEntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
+@EntityListeners(BaseEntityListener.class)
 public abstract class BaseEntity {
 
     @Id
