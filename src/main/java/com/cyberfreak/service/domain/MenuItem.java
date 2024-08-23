@@ -38,6 +38,10 @@ public class MenuItem extends AuditableEntity<MenuItem, MenuItemDto> {
     @OrderBy("orderIndex ASC")
     private List<MenuItem> children;
 
+    @ManyToOne
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
+
     @Override
     public MenuItemDto toDTO() {
         return null;

@@ -1,7 +1,6 @@
 package com.cyberfreak.service.dto;
 
 import com.cyberfreak.service.dto.base.AuditableDto;
-import com.cyberfreak.service.dto.embedded.ResourceMapDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,26 +11,16 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * DTO for {@link com.cyberfreak.service.domain.MenuItem}
+ * DTO for {@link com.cyberfreak.service.domain.Menu}
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MenuItemDto extends AuditableDto implements Serializable {
-
-    private ResourceMapDto resourceMap;
+public class MenuDto extends AuditableDto implements Serializable {
 
     private ApplicationDto application;
 
-    private Boolean active = Boolean.TRUE;
-
-    private Integer orderIndex;
-
-    private MenuItemDto parent;
-
-    private List<MenuItemDto> children;
-
-    private MenuDto menu;
+    private List<MenuItemDto> menuItems;
 }
