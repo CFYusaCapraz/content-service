@@ -22,6 +22,10 @@ public class ContentItem extends AuditableEntity<ContentItem, ContentItemDto> {
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
+    @ManyToOne
+    @JoinColumn(name = "page_content_id")
+    private PageContent page;
+
     @Override
     public ContentItemDto toDTO() {
         return null;
