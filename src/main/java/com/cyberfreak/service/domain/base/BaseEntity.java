@@ -1,5 +1,6 @@
 package com.cyberfreak.service.domain.base;
 
+import com.cyberfreak.service.dto.base.BaseEntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,4 +21,8 @@ public abstract class BaseEntity {
 
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = Boolean.FALSE;
+
+    public abstract <T extends BaseEntityDto> T toDTO();
+
+    public abstract <T extends BaseEntityDto, V extends BaseEntity> V fromDTO(T referenceDTO);
 }
