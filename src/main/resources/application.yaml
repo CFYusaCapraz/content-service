@@ -6,3 +6,9 @@ spring:
     password: ${PSQL_DB_PASSWORD}
     url: jdbc:postgresql://${PSQL_SERVER_HOST}:${PSQL_SERVER_PORT}/${PSQL_DB_NAME}
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  liquibase:
+    change-log: classpath:db/postgres/changelog-master.yaml

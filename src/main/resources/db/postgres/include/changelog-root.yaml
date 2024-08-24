@@ -1,0 +1,393 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1724528293495-1
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_application
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modification_time
+                  type: DATETIME
+              - column:
+                  name: deletion_time
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_by
+                  type: VARCHAR(255)
+              - column:
+                  name: modified_by
+                  type: VARCHAR(255)
+              - column:
+                  name: deleted_by
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: version
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_deleted
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: language
+                  type: VARCHAR(255)
+            tableName: application
+  - changeSet:
+      id: 1724528293495-2
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_content_item
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modification_time
+                  type: DATETIME
+              - column:
+                  name: deletion_time
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_by
+                  type: VARCHAR(255)
+              - column:
+                  name: modified_by
+                  type: VARCHAR(255)
+              - column:
+                  name: deleted_by
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: version
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_deleted
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: application_id
+                  type: BIGINT
+              - column:
+                  name: page_content_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: resource_key
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: resource_value
+                  type: VARCHAR(255)
+            tableName: content_item
+  - changeSet:
+      id: 1724528293495-3
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_menu
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modification_time
+                  type: DATETIME
+              - column:
+                  name: deletion_time
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_by
+                  type: VARCHAR(255)
+              - column:
+                  name: modified_by
+                  type: VARCHAR(255)
+              - column:
+                  name: deleted_by
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: version
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_deleted
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: application_id
+                  type: BIGINT
+            tableName: menu
+  - changeSet:
+      id: 1724528293495-4
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_menu_item
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modification_time
+                  type: DATETIME
+              - column:
+                  name: deletion_time
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_by
+                  type: VARCHAR(255)
+              - column:
+                  name: modified_by
+                  type: VARCHAR(255)
+              - column:
+                  name: deleted_by
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: version
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_deleted
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: application_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: active
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: order_index
+                  type: INT
+              - column:
+                  name: parent_id
+                  type: BIGINT
+              - column:
+                  name: menu_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: resource_key
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: resource_value
+                  type: VARCHAR(255)
+            tableName: menu_item
+  - changeSet:
+      id: 1724528293495-5
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_page_content
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modification_time
+                  type: DATETIME
+              - column:
+                  name: deletion_time
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_by
+                  type: VARCHAR(255)
+              - column:
+                  name: modified_by
+                  type: VARCHAR(255)
+              - column:
+                  name: deleted_by
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: version
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_deleted
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: page_name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: application_id
+                  type: BIGINT
+            tableName: page_content
+  - changeSet:
+      id: 1724528293495-6
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: application_id
+            baseTableName: content_item
+            constraintName: FK_CONTENT_ITEM_ON_APPLICATION
+            referencedColumnNames: id
+            referencedTableName: application
+  - changeSet:
+      id: 1724528293495-7
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: page_content_id
+            baseTableName: content_item
+            constraintName: FK_CONTENT_ITEM_ON_PAGE_CONTENT
+            referencedColumnNames: id
+            referencedTableName: page_content
+  - changeSet:
+      id: 1724528293495-8
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: application_id
+            baseTableName: menu_item
+            constraintName: FK_MENU_ITEM_ON_APPLICATION
+            referencedColumnNames: id
+            referencedTableName: application
+  - changeSet:
+      id: 1724528293495-9
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: menu_id
+            baseTableName: menu_item
+            constraintName: FK_MENU_ITEM_ON_MENU
+            referencedColumnNames: id
+            referencedTableName: menu
+  - changeSet:
+      id: 1724528293495-10
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: parent_id
+            baseTableName: menu_item
+            constraintName: FK_MENU_ITEM_ON_PARENT
+            referencedColumnNames: id
+            referencedTableName: menu_item
+  - changeSet:
+      id: 1724528293495-11
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: application_id
+            baseTableName: menu
+            constraintName: FK_MENU_ON_APPLICATION
+            referencedColumnNames: id
+            referencedTableName: application
+  - changeSet:
+      id: 1724528293495-12
+      author: yusac
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: application_id
+            baseTableName: page_content
+            constraintName: FK_PAGE_CONTENT_ON_APPLICATION
+            referencedColumnNames: id
+            referencedTableName: application
+
