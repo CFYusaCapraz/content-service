@@ -14,5 +14,5 @@ import java.util.Set;
 @NoArgsConstructor
 public class CreatePageContentWithItemsRequest extends CreatePageContentRequest implements Serializable {
 
-    Set<CreateContentItemRequest> contentItems;
+    private Set<CreateContentItemRequest> contentItems;
 }

@@ -16,14 +16,14 @@ public abstract class BaseEntity<Entity extends BaseEntity<Entity, DTO>, DTO ext
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    protected Long id;
 
     @Version
     @Column(name = "version", nullable = false)
-    private Integer version;
+    protected Integer version;
 
     @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = Boolean.FALSE;
+    protected Boolean isDeleted = Boolean.FALSE;
 
     @Override
     public abstract DTO toDto();

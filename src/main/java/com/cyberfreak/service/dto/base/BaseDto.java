@@ -21,12 +21,12 @@ public abstract class BaseDto implements Serializable {
 
     @NotNull
     @Positive
-    private Long id;
+    protected Long id;
 
     @NotNull
     @PositiveOrZero
-    private Integer version;
+    protected Integer version;
 
     @NotNull
-    private Boolean isDeleted = Boolean.FALSE;
+    protected Boolean isDeleted = Boolean.FALSE;
 }

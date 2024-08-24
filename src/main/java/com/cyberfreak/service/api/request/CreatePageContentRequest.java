@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CreatePageContentRequest implements Serializable {
 
-    private String pageName;
+    protected String pageName;
 
-    private Long applicationId;
+    protected Long applicationId;
 }

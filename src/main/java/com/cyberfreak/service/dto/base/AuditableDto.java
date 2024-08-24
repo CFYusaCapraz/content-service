@@ -21,16 +21,16 @@ import java.time.LocalDateTime;
 public abstract class AuditableDto extends BaseDto implements Serializable {
 
     @NotNull
-    private LocalDateTime creationTime;
+    protected LocalDateTime creationTime;
 
-    private LocalDateTime modificationTime;
+    protected LocalDateTime modificationTime;
 
-    private LocalDateTime deletionTime;
+    protected LocalDateTime deletionTime;
 
     @NotNull
-    private String createdBy;
+    protected String createdBy;
 
-    private String modifiedBy;
+    protected String modifiedBy;
 
-    private String deletedBy;
+    protected String deletedBy;
 }

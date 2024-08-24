@@ -18,22 +18,22 @@ import java.time.LocalDateTime;
 public abstract class AuditableEntity<Entity extends AuditableEntity<Entity, DTO>, DTO extends AuditableDto> extends BaseEntity<Entity, DTO> implements EntityMapper<Entity, DTO> {
 
     @Column(name = "creation_time", nullable = false, updatable = false)
-    private LocalDateTime creationTime;
+    protected LocalDateTime creationTime;
 
     @Column(name = "modification_time")
-    private LocalDateTime modificationTime;
+    protected LocalDateTime modificationTime;
 
     @Column(name = "deletion_time", updatable = false)
-    private LocalDateTime deletionTime;
+    protected LocalDateTime deletionTime;
 
     @Column(name = "created_by", nullable = false, updatable = false)
-    private String createdBy;
+    protected String createdBy;
 
     @Column(name = "modified_by")
-    private String modifiedBy;
+    protected String modifiedBy;
 
     @Column(name = "deleted_by", updatable = false)
-    private String deletedBy;
+    protected String deletedBy;
 
     public abstract DTO toDto();
 
