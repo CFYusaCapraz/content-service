@@ -1,4 +1,5 @@
 databaseChangeLog:
   - includeAll:
-      path: db/postgres/include/
+      path: /include
       errorIfMissingOrEmpty: false
+      relativeToChangelogFile: true
