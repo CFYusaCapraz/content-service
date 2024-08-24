@@ -43,12 +43,12 @@ public class MenuItem extends AuditableEntity<MenuItem, MenuItemDto> {
     private Menu menu;
 
     @Override
-    public MenuItemDto toDTO() {
+    public MenuItemDto toDto() {
         return null;
     }
 
     @Override
-    public MenuItem fromDTO(MenuItemDto referenceDTO) {
+    public MenuItem fromDto(MenuItemDto referenceDTO) {
         return null;
     }
 }

@@ -20,12 +20,12 @@ public class Application extends AuditableEntity<Application, ApplicationDto> {
     private String language;
 
     @Override
-    public ApplicationDto toDTO() {
+    public ApplicationDto toDto() {
         return null;
     }
 
     @Override
-    public Application fromDTO(ApplicationDto referenceDTO) {
+    public Application fromDto(ApplicationDto referenceDTO) {
         return null;
     }
 }

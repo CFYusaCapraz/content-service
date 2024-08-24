@@ -27,12 +27,12 @@ public class ContentItem extends AuditableEntity<ContentItem, ContentItemDto> {
     private PageContent page;
 
     @Override
-    public ContentItemDto toDTO() {
+    public ContentItemDto toDto() {
         return null;
     }
 
     @Override
-    public ContentItem fromDTO(ContentItemDto referenceDTO) {
+    public ContentItem fromDto(ContentItemDto referenceDTO) {
         return null;
     }
 }

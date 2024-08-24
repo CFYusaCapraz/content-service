@@ -35,7 +35,7 @@ public abstract class AuditableEntity<Entity extends AuditableEntity<Entity, DTO
     @Column(name = "deleted_by", updatable = false)
     private String deletedBy;
 
-    public abstract DTO toDTO();
+    public abstract DTO toDto();
 
-    public abstract Entity fromDTO(DTO referenceDTO);
+    public abstract Entity fromDto(DTO referenceDTO);
 }

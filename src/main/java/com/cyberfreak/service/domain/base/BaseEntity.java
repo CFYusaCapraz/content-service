@@ -26,8 +26,8 @@ public abstract class BaseEntity<Entity extends BaseEntity<Entity, DTO>, DTO ext
     private Boolean isDeleted = Boolean.FALSE;
 
     @Override
-    public abstract DTO toDTO();
+    public abstract DTO toDto();
 
     @Override
-    public abstract Entity fromDTO(DTO referenceDTO);
+    public abstract Entity fromDto(DTO referenceDTO);
 }
