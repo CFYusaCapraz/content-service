@@ -2,6 +2,7 @@ package com.cyberfreak.service.domain;
 
 import com.cyberfreak.service.domain.base.AuditableEntity;
 import com.cyberfreak.service.dto.PageContentDto;
+import com.cyberfreak.service.mapper.PageContentMapper;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +27,7 @@ public class PageContent extends AuditableEntity<PageContent, PageContentDto> {
 
     @Override
     public PageContentDto toDto() {
-        return null;
+        return PageContentMapper.INSTANCE.toDto(this);
     }
 
     @Override
