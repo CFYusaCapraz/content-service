@@ -24,10 +24,9 @@ public class PageContentServiceImpl implements PageContentService {
 
     @Override
     public PageContentDto createPageContent(CreatePageContentRequest request) {
-        PageContentDto pageContentDto = pageContentMapper.toDTO(request);
-        PageContent pageContent = new PageContent().fromDTO(pageContentDto);
+        PageContentDto pageContentDto = pageContentMapper.toDto(request);
         try {
-            pageContentDto = pageContentRepository.saveAndFlush(pageContent).toDTO();
+            pageContentDto = pageContentRepository.saveAndFlush(new PageContent().fromDto(pageContentDto)).toDto();
         } catch (Exception exception) {
             log.debug(exception.getMessage());
             throw new RuntimeException("Error occurred while creating page content");
