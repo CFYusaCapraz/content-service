@@ -58,7 +58,14 @@ public class PageContentServiceImpl implements PageContentService {
 
     @Override
     public PageContentDto createPageContentWithContentItems(CreatePageContentWithItemsRequest request) {
-        return null;
+        PageContentDto pageContentDto = pageContentMapper.toDto(request, request.getApplicationId());
+        try {
+            pageContentDto = pageContentRepository.saveAndFlush(new PageContent().fromDto(pageContentDto)).toDto();
+        } catch (Exception exception) {
+            log.debug(exception.getMessage());
+            throw new RuntimeException("Error occurred while creating page content with new content items");
+        }
+        return pageContentDto;
     }
 
     @Override

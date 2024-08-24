@@ -1,6 +1,7 @@
 package com.cyberfreak.service.mapper;
 
 import com.cyberfreak.service.api.request.CreatePageContentRequest;
+import com.cyberfreak.service.api.request.CreatePageContentWithItemsRequest;
 import com.cyberfreak.service.domain.PageContent;
 import com.cyberfreak.service.dto.PageContentDto;
 import com.cyberfreak.service.service.ApplicationService;
@@ -9,7 +10,7 @@ import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = {ApplicationService.class})
+        uses = {ApplicationService.class, ContentItemMapper.class})
 public interface PageContentMapper {
 
     PageContentMapper INSTANCE = Mappers.getMapper(PageContentMapper.class);
@@ -33,4 +34,8 @@ public interface PageContentMapper {
 
     @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
     PageContentDto toDto(CreatePageContentRequest createPageContentRequest);
+
+    @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
+    @Mapping(source = "contentItems", target = "contentItems", qualifiedByName = "mapCreateContentItemRequestToContentItemDtoWithContext")
+    PageContentDto toDto(CreatePageContentWithItemsRequest createPageContentWithItemsRequest, @Context Long pageContentApplicationId);
 }

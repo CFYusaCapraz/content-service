@@ -9,6 +9,7 @@ import org.mapstruct.*;
         uses = {ApplicationService.class})
 public interface ContentItemMapper {
 
+    @Named("mapCreateContentItemRequestToContentItemDtoWithContext")
     @Mapping(source = "key", target = "resourceMap.resourceKey")
     @Mapping(source = "value", target = "resourceMap.resourceValue")
     @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDtoWithContext")
