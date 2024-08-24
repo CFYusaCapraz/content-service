@@ -14,20 +14,23 @@ public interface PageContentMapper {
 
     PageContentMapper INSTANCE = Mappers.getMapper(PageContentMapper.class);
 
-    PageContent toEntity(PageContentDto pageContentDto);
-
     @AfterMapping
     default void linkContentItems(@MappingTarget @NotNull PageContent pageContent) {
         pageContent.getContentItems().forEach(contentItem -> contentItem.setPage(pageContent));
     }
 
-    PageContentDto toDto(PageContent pageContent);
+    @AfterMapping
+    default void linkContentItems(@MappingTarget @NotNull PageContentDto pageContentDto) {
+        pageContentDto.getContentItems().forEach(contentItem -> contentItem.setPage(pageContentDto));
+    }
+
+    PageContent toEntity(PageContentDto pageContentDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     PageContent partialUpdate(PageContentDto pageContentDto, @MappingTarget PageContent pageContent);
 
+    PageContentDto toDto(PageContent pageContent);
 
-    @Mapping(source = "pageName", target = "pageName")
     @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
     PageContentDto toDto(CreatePageContentRequest createPageContentRequest);
 }
