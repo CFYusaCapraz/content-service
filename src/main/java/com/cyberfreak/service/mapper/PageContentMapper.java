@@ -1,16 +1,18 @@
 package com.cyberfreak.service.mapper;
 
 import com.cyberfreak.service.api.request.CreatePageContentRequest;
+import com.cyberfreak.service.api.request.CreatePageContentWithExistingItemsRequest;
 import com.cyberfreak.service.api.request.CreatePageContentWithItemsRequest;
 import com.cyberfreak.service.domain.PageContent;
 import com.cyberfreak.service.dto.PageContentDto;
 import com.cyberfreak.service.service.ApplicationService;
+import com.cyberfreak.service.service.ContentItemService;
 import org.jetbrains.annotations.NotNull;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = {ApplicationService.class, ContentItemMapper.class})
+        uses = {ApplicationService.class, ContentItemMapper.class, ContentItemService.class})
 public interface PageContentMapper {
 
     PageContentMapper INSTANCE = Mappers.getMapper(PageContentMapper.class);
@@ -38,4 +40,8 @@ public interface PageContentMapper {
     @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
     @Mapping(source = "contentItems", target = "contentItems", qualifiedByName = "mapCreateContentItemRequestToContentItemDtoWithContext")
     PageContentDto toDto(CreatePageContentWithItemsRequest createPageContentWithItemsRequest, @Context Long pageContentApplicationId);
+
+    @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
+    @Mapping(source = "contentItems", target = "contentItems", qualifiedByName = "mapContentItemIdToContentItemDto")
+    PageContentDto toDto(CreatePageContentWithExistingItemsRequest createPageContentWithExistingItemsRequest);
 }
