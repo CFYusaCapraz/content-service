@@ -18,12 +18,12 @@ public interface PageContentMapper {
     PageContentMapper INSTANCE = Mappers.getMapper(PageContentMapper.class);
 
     @AfterMapping
-    default void linkContentItems(@MappingTarget @NotNull PageContent pageContent) {
+    default void linkContentItems(PageContentDto pageContentDto, @MappingTarget @NotNull PageContent pageContent) {
         pageContent.getContentItems().forEach(contentItem -> contentItem.setPage(pageContent));
     }
 
     @AfterMapping
-    default void linkContentItems(@MappingTarget @NotNull PageContentDto pageContentDto) {
+    default void linkContentItems(PageContent pageContent, @MappingTarget @NotNull PageContentDto pageContentDto) {
         pageContentDto.getContentItems().forEach(contentItem -> contentItem.setPage(pageContentDto));
     }
 
