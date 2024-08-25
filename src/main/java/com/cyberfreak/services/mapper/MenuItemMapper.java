@@ -5,8 +5,10 @@ import com.cyberfreak.services.dto.MenuItemDto;
 import org.jetbrains.annotations.NotNull;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+import org.springframework.context.annotation.Lazy;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "springlazy",
+        uses = {ApplicationMapper.class, MenuMapper.class})
 public interface MenuItemMapper {
 
     MenuItemMapper INSTANCE = Mappers.getMapper(MenuItemMapper.class);

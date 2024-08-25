@@ -11,8 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = {ApplicationService.class, ContentItemMapper.class, ContentItemService.class})
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = {ApplicationService.class, ContentItemService.class,
+                ApplicationMapper.class, ContentItemMapper.class})
 public interface PageContentMapper {
 
     PageContentMapper INSTANCE = Mappers.getMapper(PageContentMapper.class);

@@ -6,7 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = {ApplicationMapper.class, MenuItemMapper.class})
 public interface MenuMapper {
 
     MenuMapper INSTANCE = Mappers.getMapper(MenuMapper.class);

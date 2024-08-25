@@ -6,9 +6,10 @@ import com.cyberfreak.services.dto.ContentItemDto;
 import com.cyberfreak.services.service.ApplicationService;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+import org.springframework.context.annotation.Lazy;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = {ApplicationService.class})
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "springlazy",
+        uses = {ApplicationService.class, ApplicationMapper.class, PageContentMapper.class})
 public interface ContentItemMapper {
 
     ContentItemMapper INSTANCE = Mappers.getMapper(ContentItemMapper.class);
