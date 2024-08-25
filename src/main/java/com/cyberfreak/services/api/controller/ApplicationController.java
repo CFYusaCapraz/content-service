@@ -9,7 +9,6 @@ import com.cyberfreak.services.api.response.ListResultResponse;
 import com.cyberfreak.services.api.response.SaveEntityResponse;
 import com.cyberfreak.services.api.response.SingleResultResponse;
 import com.cyberfreak.services.dto.ApplicationDto;
-import com.cyberfreak.services.mapper.ApplicationMapper;
 import com.cyberfreak.services.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +23,6 @@ import java.util.List;
 public class ApplicationController {
 
     private final ApplicationService applicationService;
-
-    private final ApplicationMapper applicationMapper;
 
     @GetMapping
     public ListResultResponse<ApplicationDto> getApplications() {
