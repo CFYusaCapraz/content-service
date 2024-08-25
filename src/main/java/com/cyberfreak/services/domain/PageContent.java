@@ -32,6 +32,6 @@ public class PageContent extends AuditableEntity<PageContent, PageContentDto> {
 
     @Override
     public PageContent fromDto(PageContentDto referenceDTO) {
-        return null;
+        return PageContentMapper.INSTANCE.toEntity(referenceDTO);
     }
 }
