@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = ApiEndpoints.PAGE_CONTENT_PATH)
 @RequiredArgsConstructor
@@ -50,12 +52,13 @@ public class PageContentController {
 
     @GetMapping
     public ListResultResponse<PageContentDto> getPageContentList() {
-        return new ListResultResponse<>(null);
+        List<PageContentDto> pageContentDtoList = pageContentService.getPageContentList();
+        return new ListResultResponse<>(pageContentDtoList);
     }
 
-    @GetMapping(path = "/by{PageName}")
-    public SingleResultResponse<PageContentDto> getPageContentByPageName(
-            @PathVariable(name = "PageName") String pageName) {
-        return new SingleResultResponse<>(null);
+    @GetMapping(path = ApiPaths.PAGE_CONTENT_BY_NAME_PATH)
+    public SingleResultResponse<PageContentDto> getPageContentByPageName(@PathVariable(ApiPaths.PAGE_NAME) String pageName) {
+        PageContentDto pageContentDto = pageContentService.getPageContentByPageName(pageName);
+        return new SingleResultResponse<>(pageContentDto);
     }
 }

@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -78,5 +79,16 @@ public class PageContentServiceImpl implements PageContentService {
             throw new RuntimeException("Error occurred while creating page content with existing content items");
         }
         return pageContentDto;
+    }
+
+    @Override
+    public List<PageContentDto> getPageContentList() {
+        return pageContentRepository.findAll().stream().map(PageContent::toDto).toList();
+    }
+
+    @Override
+    public PageContentDto getPageContentByPageName(String pageName) {
+        return pageContentRepository.findByPageName(pageName)
+                .orElseThrow(() -> new RuntimeException("Page content by page name not found")).toDto();
     }
 }

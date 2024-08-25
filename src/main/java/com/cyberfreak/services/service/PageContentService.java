@@ -6,6 +6,8 @@ import com.cyberfreak.services.api.request.CreatePageContentWithExistingItemsReq
 import com.cyberfreak.services.api.request.CreatePageContentWithItemsRequest;
 import com.cyberfreak.services.dto.PageContentDto;
 
+import java.util.List;
+
 public interface PageContentService {
 
     PageContentDto createPageContent(CreatePageContentRequest request);
@@ -15,4 +17,8 @@ public interface PageContentService {
     PageContentDto createPageContentWithContentItems(CreatePageContentWithItemsRequest request);
 
     PageContentDto createPageContentWithExistingContentItems(CreatePageContentWithExistingItemsRequest request);
+
+    List<PageContentDto> getPageContentList();
+
+    PageContentDto getPageContentByPageName(String pageName);
 }
