@@ -71,4 +71,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         return applicationDto;
     }
+
+    @Override
+    public void deleteApplication(Long id) {
+        Application application = applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Application not found"));
+        try {
+            applicationRepository.delete(application);
+        } catch (Exception exception) {
+            log.debug(exception.getMessage());
+            throw new RuntimeException("Application delete failed");
+        }
+    }
 }

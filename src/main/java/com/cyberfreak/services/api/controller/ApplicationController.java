@@ -4,6 +4,7 @@ import com.cyberfreak.services.api.constants.ApiEndpoints;
 import com.cyberfreak.services.api.constants.ApiPaths;
 import com.cyberfreak.services.api.request.CreateApplicationRequest;
 import com.cyberfreak.services.api.request.UpdateApplicationRequest;
+import com.cyberfreak.services.api.response.BaseResponse;
 import com.cyberfreak.services.api.response.ListResultResponse;
 import com.cyberfreak.services.api.response.SaveEntityResponse;
 import com.cyberfreak.services.api.response.SingleResultResponse;
@@ -57,4 +58,11 @@ public class ApplicationController {
         ApplicationDto applicationDto = applicationService.updateApplication(id, updateApplicationRequest);
         return new SaveEntityResponse(applicationDto.getId());
     }
+
+    @DeleteMapping(path = ApiPaths.APPLICATION_ID_PATH)
+    public BaseResponse deleteApplication(@PathVariable(ApiPaths.APPLICATION_ID) Long id) {
+        applicationService.deleteApplication(id);
+        return new BaseResponse(true);
+    }
+
 }

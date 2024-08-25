@@ -25,4 +25,6 @@ public interface ApplicationService {
     ApplicationDto createApplication(CreateApplicationRequest createApplicationRequest);
 
     ApplicationDto updateApplication(Long id, UpdateApplicationRequest updateApplicationRequest);
+
+    void deleteApplication(Long id);
 }
