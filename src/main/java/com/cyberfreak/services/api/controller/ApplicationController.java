@@ -1,6 +1,7 @@
 package com.cyberfreak.services.api.controller;
 
 import com.cyberfreak.services.api.constants.ApiEndpoints;
+import com.cyberfreak.services.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,4 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 public class ApplicationController {
+
+    private final ApplicationService applicationService;
 }
