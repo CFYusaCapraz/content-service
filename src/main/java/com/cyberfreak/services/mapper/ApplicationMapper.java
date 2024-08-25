@@ -1,5 +1,6 @@
 package com.cyberfreak.services.mapper;
 
+import com.cyberfreak.services.api.request.CreateApplicationRequest;
 import com.cyberfreak.services.domain.Application;
 import com.cyberfreak.services.dto.ApplicationDto;
 import org.mapstruct.*;
@@ -16,4 +17,6 @@ public interface ApplicationMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Application partialUpdate(ApplicationDto applicationDto, @MappingTarget Application application);
+
+    ApplicationDto toDto(CreateApplicationRequest createApplicationRequest);
 }

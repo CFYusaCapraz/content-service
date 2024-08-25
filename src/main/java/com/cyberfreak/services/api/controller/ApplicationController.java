@@ -2,9 +2,12 @@ package com.cyberfreak.services.api.controller;
 
 import com.cyberfreak.services.api.constants.ApiEndpoints;
 import com.cyberfreak.services.api.constants.ApiPaths;
+import com.cyberfreak.services.api.request.CreateApplicationRequest;
 import com.cyberfreak.services.api.response.ListResultResponse;
+import com.cyberfreak.services.api.response.SaveEntityResponse;
 import com.cyberfreak.services.api.response.SingleResultResponse;
 import com.cyberfreak.services.dto.ApplicationDto;
+import com.cyberfreak.services.mapper.ApplicationMapper;
 import com.cyberfreak.services.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +22,8 @@ import java.util.List;
 public class ApplicationController {
 
     private final ApplicationService applicationService;
+
+    private final ApplicationMapper applicationMapper;
 
     @GetMapping
     public ListResultResponse<ApplicationDto> getApplications() {
@@ -37,5 +42,11 @@ public class ApplicationController {
                                                                                @RequestParam(ApiPaths.APPLICATION_LANGUAGE) String language) {
         List<ApplicationDto> applicationDtoList = applicationService.getApplicationsByNameAndLanguage(name, language);
         return new ListResultResponse<>(applicationDtoList);
+    }
+
+    @PostMapping
+    public SaveEntityResponse createApplication(@RequestBody CreateApplicationRequest createApplicationRequest) {
+        ApplicationDto applicationDto = applicationService.createApplication(createApplicationRequest);
+        return new SaveEntityResponse(applicationDto.getId());
     }
 }
