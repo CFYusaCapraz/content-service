@@ -3,9 +3,12 @@ package com.cyberfreak.services.mapper;
 import com.cyberfreak.services.domain.Application;
 import com.cyberfreak.services.dto.ApplicationDto;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ApplicationMapper {
+
+    ApplicationMapper INSTANCE = Mappers.getMapper(ApplicationMapper.class);
 
     Application toEntity(ApplicationDto applicationDto);
 

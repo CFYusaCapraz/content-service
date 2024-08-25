@@ -4,9 +4,12 @@ import com.cyberfreak.services.domain.Menu;
 import com.cyberfreak.services.dto.MenuDto;
 import org.jetbrains.annotations.NotNull;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MenuMapper {
+
+    MenuMapper INSTANCE = Mappers.getMapper(MenuMapper.class);
 
     @AfterMapping
     default void linkMenuItems(@MappingTarget @NotNull Menu menu) {

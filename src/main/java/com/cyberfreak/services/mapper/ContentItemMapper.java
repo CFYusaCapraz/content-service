@@ -5,10 +5,13 @@ import com.cyberfreak.services.domain.ContentItem;
 import com.cyberfreak.services.dto.ContentItemDto;
 import com.cyberfreak.services.service.ApplicationService;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE,
         uses = {ApplicationService.class})
 public interface ContentItemMapper {
+
+    ContentItemMapper INSTANCE = Mappers.getMapper(ContentItemMapper.class);
 
     ContentItem toEntity(ContentItemDto contentItemDto);
 
