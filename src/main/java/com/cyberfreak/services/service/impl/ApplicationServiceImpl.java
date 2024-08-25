@@ -1,5 +1,6 @@
 package com.cyberfreak.services.service.impl;
 
+import com.cyberfreak.services.domain.Application;
 import com.cyberfreak.services.dto.ApplicationDto;
 import com.cyberfreak.services.repository.ApplicationRepository;
 import com.cyberfreak.services.service.ApplicationService;
@@ -9,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -26,5 +28,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ApplicationDto getApplication(@Nullable Long id, @NotNull Long parentApplicationId) {
         return getApplication(Objects.requireNonNullElse(id, parentApplicationId));
+    }
+
+    @Override
+    public List<ApplicationDto> getApplications() {
+        return applicationRepository.findAll().stream().map(Application::toDto).toList();
     }
 }

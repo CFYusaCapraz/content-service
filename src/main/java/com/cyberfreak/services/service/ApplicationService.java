@@ -6,6 +6,8 @@ import org.jetbrains.annotations.Nullable;
 import org.mapstruct.Context;
 import org.mapstruct.Named;
 
+import java.util.List;
+
 public interface ApplicationService {
 
     @Named("mapApplicationIdToApplicationDto")
@@ -13,4 +15,6 @@ public interface ApplicationService {
 
     @Named("mapApplicationIdToApplicationDtoWithContext")
     ApplicationDto getApplication(@Nullable Long id, @NotNull @Context Long parentApplicationId);
+
+    List<ApplicationDto> getApplications();
 }
