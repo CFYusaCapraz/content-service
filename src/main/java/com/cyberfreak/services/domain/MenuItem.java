@@ -3,6 +3,7 @@ package com.cyberfreak.services.domain;
 import com.cyberfreak.services.domain.base.AuditableEntity;
 import com.cyberfreak.services.domain.embeddable.ResourceMap;
 import com.cyberfreak.services.dto.MenuItemDto;
+import com.cyberfreak.services.mapper.MenuItemMapper;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,11 +45,11 @@ public class MenuItem extends AuditableEntity<MenuItem, MenuItemDto> {
 
     @Override
     public MenuItemDto toDto() {
-        return null;
+        return MenuItemMapper.INSTANCE.toDto(this);
     }
 
     @Override
     public MenuItem fromDto(MenuItemDto referenceDTO) {
-        return null;
+        return MenuItemMapper.INSTANCE.toEntity(referenceDTO);
     }
 }

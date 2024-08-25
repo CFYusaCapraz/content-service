@@ -3,6 +3,7 @@ package com.cyberfreak.services.domain;
 import com.cyberfreak.services.domain.base.AuditableEntity;
 import com.cyberfreak.services.domain.embeddable.ResourceMap;
 import com.cyberfreak.services.dto.ContentItemDto;
+import com.cyberfreak.services.mapper.ContentItemMapper;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,11 +29,11 @@ public class ContentItem extends AuditableEntity<ContentItem, ContentItemDto> {
 
     @Override
     public ContentItemDto toDto() {
-        return null;
+        return ContentItemMapper.INSTANCE.toDto(this);
     }
 
     @Override
     public ContentItem fromDto(ContentItemDto referenceDTO) {
-        return null;
+        return ContentItemMapper.INSTANCE.toEntity(referenceDTO);
     }
 }

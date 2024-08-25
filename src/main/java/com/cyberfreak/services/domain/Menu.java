@@ -2,6 +2,7 @@ package com.cyberfreak.services.domain;
 
 import com.cyberfreak.services.domain.base.AuditableEntity;
 import com.cyberfreak.services.dto.MenuDto;
+import com.cyberfreak.services.mapper.MenuMapper;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +24,11 @@ public class Menu extends AuditableEntity<Menu, MenuDto> {
 
     @Override
     public MenuDto toDto() {
-        return null;
+        return MenuMapper.INSTANCE.toDto(this);
     }
 
     @Override
     public Menu fromDto(MenuDto referenceDTO) {
-        return null;
+        return MenuMapper.INSTANCE.toEntity(referenceDTO);
     }
 }
