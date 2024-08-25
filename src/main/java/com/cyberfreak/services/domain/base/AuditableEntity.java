@@ -1,20 +1,21 @@
 package com.cyberfreak.services.domain.base;
 
+import com.cyberfreak.services.domain.listeners.AuditableEntityListener;
 import com.cyberfreak.services.domain.mapper.EntityMapper;
 import com.cyberfreak.services.dto.base.AuditableDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditableEntityListener.class)
 public abstract class AuditableEntity<Entity extends AuditableEntity<Entity, DTO>, DTO extends AuditableDto> extends BaseEntity<Entity, DTO> implements EntityMapper<Entity, DTO> {
 
     @Column(name = "creation_time", nullable = false, updatable = false)
