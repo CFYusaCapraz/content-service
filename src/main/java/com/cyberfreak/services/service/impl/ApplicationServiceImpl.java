@@ -34,4 +34,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public List<ApplicationDto> getApplications() {
         return applicationRepository.findAll().stream().map(Application::toDto).toList();
     }
+
+    @Override
+    public List<ApplicationDto> getApplicationsByNameAndLanguage(String name, String language) {
+        return applicationRepository.findByNameIgnoreCaseAndLanguageIgnoreCase(name, language)
+                .stream().map(Application::toDto).toList();
+    }
 }

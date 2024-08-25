@@ -17,4 +17,6 @@ public interface ApplicationService {
     ApplicationDto getApplication(@Nullable Long id, @NotNull @Context Long parentApplicationId);
 
     List<ApplicationDto> getApplications();
+
+    List<ApplicationDto> getApplicationsByNameAndLanguage(String name, String language);
 }
