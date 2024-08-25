@@ -3,6 +3,7 @@ package com.cyberfreak.services.api.controller;
 import com.cyberfreak.services.api.constants.ApiEndpoints;
 import com.cyberfreak.services.api.constants.ApiPaths;
 import com.cyberfreak.services.api.request.CreateApplicationRequest;
+import com.cyberfreak.services.api.request.UpdateApplicationRequest;
 import com.cyberfreak.services.api.response.ListResultResponse;
 import com.cyberfreak.services.api.response.SaveEntityResponse;
 import com.cyberfreak.services.api.response.SingleResultResponse;
@@ -31,7 +32,7 @@ public class ApplicationController {
         return new ListResultResponse<>(applicationDtoList);
     }
 
-    @GetMapping(path = ApiPaths.APPLICATION_BY_ID_PATH)
+    @GetMapping(path = ApiPaths.APPLICATION_ID_PATH)
     public SingleResultResponse<ApplicationDto> getApplication(@PathVariable(ApiPaths.APPLICATION_ID) Long id) {
         ApplicationDto applicationDto = applicationService.getApplication(id);
         return new SingleResultResponse<>(applicationDto);
@@ -47,6 +48,13 @@ public class ApplicationController {
     @PostMapping
     public SaveEntityResponse createApplication(@RequestBody CreateApplicationRequest createApplicationRequest) {
         ApplicationDto applicationDto = applicationService.createApplication(createApplicationRequest);
+        return new SaveEntityResponse(applicationDto.getId());
+    }
+
+    @PutMapping(path = ApiPaths.APPLICATION_ID_PATH)
+    public SaveEntityResponse updateApplication(@PathVariable(ApiPaths.APPLICATION_ID) Long id,
+                                                @RequestBody UpdateApplicationRequest updateApplicationRequest) {
+        ApplicationDto applicationDto = applicationService.updateApplication(id, updateApplicationRequest);
         return new SaveEntityResponse(applicationDto.getId());
     }
 }

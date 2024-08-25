@@ -1,6 +1,7 @@
 package com.cyberfreak.services.mapper;
 
 import com.cyberfreak.services.api.request.CreateApplicationRequest;
+import com.cyberfreak.services.api.request.UpdateApplicationRequest;
 import com.cyberfreak.services.domain.Application;
 import com.cyberfreak.services.dto.ApplicationDto;
 import org.mapstruct.*;
@@ -19,4 +20,6 @@ public interface ApplicationMapper {
     Application partialUpdate(ApplicationDto applicationDto, @MappingTarget Application application);
 
     ApplicationDto toDto(CreateApplicationRequest createApplicationRequest);
+
+    ApplicationDto toDto(UpdateApplicationRequest updateApplicationRequest);
 }

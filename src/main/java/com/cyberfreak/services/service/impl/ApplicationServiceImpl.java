@@ -1,6 +1,7 @@
 package com.cyberfreak.services.service.impl;
 
 import com.cyberfreak.services.api.request.CreateApplicationRequest;
+import com.cyberfreak.services.api.request.UpdateApplicationRequest;
 import com.cyberfreak.services.domain.Application;
 import com.cyberfreak.services.dto.ApplicationDto;
 import com.cyberfreak.services.mapper.ApplicationMapper;
@@ -53,6 +54,20 @@ public class ApplicationServiceImpl implements ApplicationService {
         } catch (Exception exception) {
             log.debug(exception.getMessage());
             throw new RuntimeException("Application creation failed");
+        }
+        return applicationDto;
+    }
+
+    @Override
+    public ApplicationDto updateApplication(Long id, UpdateApplicationRequest updateApplicationRequest) {
+        Application application = applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Application not found"));
+        ApplicationDto applicationDto = applicationMapper.toDto(updateApplicationRequest);
+        application = applicationMapper.partialUpdate(applicationDto, application);
+        try {
+            applicationDto = applicationRepository.saveAndFlush(application).toDto();
+        } catch (Exception exception) {
+            log.debug(exception.getMessage());
+            throw new RuntimeException("Application update failed");
         }
         return applicationDto;
     }
