@@ -32,11 +32,13 @@ dependencies {
     implementation 'org.jetbrains:annotations:24.0.0'
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0'
     annotationProcessor 'io.github.anweber:mapstruct-springlazy:1.0.0'
+    annotationProcessor 'org.hibernate.orm:hibernate-jpamodelgen'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
