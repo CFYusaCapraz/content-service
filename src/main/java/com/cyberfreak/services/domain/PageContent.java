@@ -6,6 +6,7 @@ import com.cyberfreak.services.mapper.PageContentMapper;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "page_content")
+@DynamicUpdate
 public class PageContent extends AuditableEntity<PageContent, PageContentDto> {
 
     @Column(name = "page_name", nullable = false)
