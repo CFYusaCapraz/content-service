@@ -22,6 +22,8 @@ spring:
   sql:
     init:
       continue-on-error: true
+  jackson:
+    default-property-inclusion: non_null
 
 springdoc:
   swagger-ui:

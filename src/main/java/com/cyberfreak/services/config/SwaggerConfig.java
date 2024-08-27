@@ -37,7 +37,7 @@ public class SwaggerConfig {
                         .addParameters("x-user-id",
                                 new Parameter()
                                 .description("User ID for the audit context. This is a mandatory header, because audit information is persisted using this user ID")
-                                .in("headers")
+                                .in("header")
                                 .name("x-user-id")
                                 .required(true)
                                 .schema(new StringSchema()))
