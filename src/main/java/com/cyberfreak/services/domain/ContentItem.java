@@ -1,5 +1,6 @@
 package com.cyberfreak.services.domain;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.domain.base.AuditableEntity;
 import com.cyberfreak.services.domain.embeddable.ResourceMap;
 import com.cyberfreak.services.dto.ContentItemDto;
@@ -29,11 +30,11 @@ public class ContentItem extends AuditableEntity<ContentItem, ContentItemDto> {
 
     @Override
     public ContentItemDto toDto(MapperBase<ContentItem, ContentItemDto> entityMapper) {
-        return entityMapper.toDto(this);
+        return entityMapper.toDto(this, new CycleAvoidingMappingContext());
     }
 
     @Override
     public ContentItem fromDto(ContentItemDto referenceDTO, MapperBase<ContentItem, ContentItemDto> entityMapper) {
-        return entityMapper.toEntity(referenceDTO);
+        return entityMapper.toEntity(referenceDTO, new CycleAvoidingMappingContext());
     }
 }

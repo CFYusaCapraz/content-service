@@ -1,5 +1,6 @@
 package com.cyberfreak.services.mapper;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.api.request.pagecontent.PageContentContentItemRequest;
 import com.cyberfreak.services.domain.ContentItem;
 import com.cyberfreak.services.dto.ContentItemDto;
@@ -11,14 +12,14 @@ import org.mapstruct.*;
 public interface ContentItemMapper extends MapperBase<ContentItem, ContentItemDto> {
 
     @Override
-    ContentItem toEntity(ContentItemDto contentItemDto);
+    ContentItem toEntity(ContentItemDto contentItemDto, @Context CycleAvoidingMappingContext context);
 
     @Override
-    ContentItemDto toDto(ContentItem contentItem);
+    ContentItemDto toDto(ContentItem contentItem, @Context CycleAvoidingMappingContext context);
 
     @Override
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    ContentItem partialUpdate(ContentItemDto contentItemDto, @MappingTarget ContentItem contentItem);
+    ContentItem partialUpdate(ContentItemDto contentItemDto, @MappingTarget ContentItem contentItem, @Context CycleAvoidingMappingContext context);
 
     @Mapping(source = "key", target = "resourceMap.resourceKey")
     @Mapping(source = "value", target = "resourceMap.resourceValue")

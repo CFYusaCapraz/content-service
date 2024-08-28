@@ -1,5 +1,6 @@
 package com.cyberfreak.services.domain;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.domain.base.AuditableEntity;
 import com.cyberfreak.services.dto.MenuDto;
 import com.cyberfreak.services.mapper.MapperBase;
@@ -26,11 +27,11 @@ public class Menu extends AuditableEntity<Menu, MenuDto> {
 
     @Override
     public MenuDto toDto(MapperBase<Menu, MenuDto> entityMapper) {
-        return entityMapper.toDto(this);
+        return entityMapper.toDto(this, new CycleAvoidingMappingContext());
     }
 
     @Override
     public Menu fromDto(MenuDto referenceDTO, MapperBase<Menu, MenuDto> entityMapper) {
-        return entityMapper.toEntity(referenceDTO);
+        return entityMapper.toEntity(referenceDTO, new CycleAvoidingMappingContext());
     }
 }

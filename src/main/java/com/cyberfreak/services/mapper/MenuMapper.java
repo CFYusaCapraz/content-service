@@ -1,5 +1,6 @@
 package com.cyberfreak.services.mapper;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.domain.Menu;
 import com.cyberfreak.services.dto.MenuDto;
 import org.jetbrains.annotations.NotNull;
@@ -18,12 +19,12 @@ public interface MenuMapper extends MapperBase<Menu, MenuDto> {
     }
 
     @Override
-    Menu toEntity(MenuDto menuDto);
+    Menu toEntity(MenuDto menuDto, @Context CycleAvoidingMappingContext context);
 
     @Override
-    MenuDto toDto(Menu menu);
+    MenuDto toDto(Menu menu, @Context CycleAvoidingMappingContext context);
 
     @Override
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Menu partialUpdate(MenuDto menuDto, @MappingTarget Menu menu);
+    Menu partialUpdate(MenuDto menuDto, @MappingTarget Menu menu, @Context CycleAvoidingMappingContext context);
 }

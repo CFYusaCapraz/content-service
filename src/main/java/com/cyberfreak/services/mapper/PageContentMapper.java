@@ -1,5 +1,6 @@
 package com.cyberfreak.services.mapper;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithExistingItemsRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithItemsRequest;
@@ -45,14 +46,14 @@ public interface PageContentMapper extends MapperBase<PageContent, PageContentDt
     }
 
     @Override
-    PageContent toEntity(PageContentDto pageContentDto);
+    PageContent toEntity(PageContentDto pageContentDto, @Context CycleAvoidingMappingContext context);
 
     @Override
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    PageContent partialUpdate(PageContentDto pageContentDto, @MappingTarget PageContent pageContent);
+    PageContent partialUpdate(PageContentDto pageContentDto, @MappingTarget PageContent pageContent, @Context CycleAvoidingMappingContext context);
 
     @Override
-    PageContentDto toDto(PageContent pageContent);
+    PageContentDto toDto(PageContent pageContent, @Context CycleAvoidingMappingContext context);
 
     @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
     PageContentDto toDto(CreatePageContentRequest createPageContentRequest);

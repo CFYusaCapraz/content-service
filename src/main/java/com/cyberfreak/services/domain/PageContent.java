@@ -1,5 +1,6 @@
 package com.cyberfreak.services.domain;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.domain.base.AuditableEntity;
 import com.cyberfreak.services.dto.PageContentDto;
 import com.cyberfreak.services.mapper.MapperBase;
@@ -29,11 +30,11 @@ public class PageContent extends AuditableEntity<PageContent, PageContentDto> {
 
     @Override
     public PageContentDto toDto(MapperBase<PageContent, PageContentDto> entityMapper) {
-        return entityMapper.toDto(this);
+        return entityMapper.toDto(this, new CycleAvoidingMappingContext());
     }
 
     @Override
     public PageContent fromDto(PageContentDto referenceDTO, MapperBase<PageContent, PageContentDto> entityMapper) {
-        return entityMapper.toEntity(referenceDTO);
+        return entityMapper.toEntity(referenceDTO, new CycleAvoidingMappingContext());
     }
 }

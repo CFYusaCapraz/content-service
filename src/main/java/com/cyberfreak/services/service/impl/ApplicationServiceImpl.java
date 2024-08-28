@@ -1,5 +1,6 @@
 package com.cyberfreak.services.service.impl;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.api.request.application.CreateApplicationRequest;
 import com.cyberfreak.services.api.request.application.UpdateApplicationRequest;
 import com.cyberfreak.services.domain.Application;
@@ -57,7 +58,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ApplicationDto updateApplication(Long id, UpdateApplicationRequest updateApplicationRequest) {
         Application application = applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Application not found"));
         ApplicationDto applicationDto = applicationMapper.toDto(updateApplicationRequest);
-        application = applicationMapper.partialUpdate(applicationDto, application);
+        application = applicationMapper.partialUpdate(applicationDto, application, new CycleAvoidingMappingContext());
         try {
             applicationDto = applicationRepository.saveAndFlush(application).toDto(applicationMapper);
         } catch (Exception exception) {
