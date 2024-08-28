@@ -1,21 +1,23 @@
 package com.cyberfreak.services.service.impl;
 
-import com.cyberfreak.services.api.request.AddContentItemsRequest;
-import com.cyberfreak.services.api.request.CreatePageContentRequest;
-import com.cyberfreak.services.api.request.CreatePageContentWithExistingItemsRequest;
-import com.cyberfreak.services.api.request.CreatePageContentWithItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.AddContentItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithExistingItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithItemsRequest;
 import com.cyberfreak.services.domain.PageContent;
 import com.cyberfreak.services.dto.ContentItemDto;
 import com.cyberfreak.services.dto.PageContentDto;
 import com.cyberfreak.services.mapper.ContentItemMapper;
 import com.cyberfreak.services.mapper.PageContentMapper;
 import com.cyberfreak.services.repository.PageContentRepository;
+import com.cyberfreak.services.service.ContentItemService;
 import com.cyberfreak.services.service.PageContentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,8 +49,18 @@ public class PageContentServiceImpl implements PageContentService {
     public PageContentDto addContentItemsToPageContent(Long id, AddContentItemsRequest request) {
         PageContentDto pageContentDto = pageContentRepository.findById(id).orElseThrow(() -> new RuntimeException("Page content not found")).toDto(pageContentMapper);
         PageContentDto finalPageContentDto = pageContentDto;
-        Set<ContentItemDto> contentItems = request.getContentItems().stream().map(o -> contentItemMapper.toDto(o, finalPageContentDto.getApplication().getId())).collect(Collectors.toSet());
-        pageContentDto.getContentItems().addAll(contentItems);
+        Set<ContentItemDto> contentItemDtoSet = request.getContentItems().stream()
+                .map(contentItemMapper::toDto)
+                .peek(contentItemDto -> {
+                    contentItemDto.setPage(finalPageContentDto);
+                    contentItemDto.setApplication(finalPageContentDto.getApplication());
+                })
+                .collect(Collectors.toSet());
+        if (pageContentDto.getContentItems() != null) {
+            pageContentDto.getContentItems().addAll(contentItemDtoSet);
+        } else {
+            pageContentDto.setContentItems(contentItemDtoSet);
+        }
         try {
             PageContent pageContent = new PageContent().fromDto(pageContentDto, pageContentMapper);
             pageContentDto = pageContentRepository.saveAndFlush(pageContent).toDto(pageContentMapper);
@@ -61,7 +73,7 @@ public class PageContentServiceImpl implements PageContentService {
 
     @Override
     public PageContentDto createPageContentWithContentItems(CreatePageContentWithItemsRequest request) {
-        PageContentDto pageContentDto = pageContentMapper.toDto(request, request.getApplicationId());
+        PageContentDto pageContentDto = pageContentMapper.toDto(request);
         try {
             PageContent pageContent = new PageContent().fromDto(pageContentDto, pageContentMapper);
             pageContentDto = pageContentRepository.saveAndFlush(pageContent).toDto(pageContentMapper);

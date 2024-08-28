@@ -1,9 +1,9 @@
 package com.cyberfreak.services.service;
 
-import com.cyberfreak.services.api.request.AddContentItemsRequest;
-import com.cyberfreak.services.api.request.CreatePageContentRequest;
-import com.cyberfreak.services.api.request.CreatePageContentWithExistingItemsRequest;
-import com.cyberfreak.services.api.request.CreatePageContentWithItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.AddContentItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithExistingItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithItemsRequest;
 import com.cyberfreak.services.dto.PageContentDto;
 
 import java.util.List;
