@@ -1,7 +1,7 @@
 package com.cyberfreak.services.service.impl;
 
-import com.cyberfreak.services.api.request.CreateApplicationRequest;
-import com.cyberfreak.services.api.request.UpdateApplicationRequest;
+import com.cyberfreak.services.api.request.application.CreateApplicationRequest;
+import com.cyberfreak.services.api.request.application.UpdateApplicationRequest;
 import com.cyberfreak.services.domain.Application;
 import com.cyberfreak.services.dto.ApplicationDto;
 import com.cyberfreak.services.mapper.ApplicationMapper;
@@ -28,11 +28,6 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ApplicationDto getApplication(@NotNull Long id) {
         return applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Application not found")).toDto(applicationMapper);
-    }
-
-    @Override
-    public ApplicationDto getApplication(@Nullable Long id, @NotNull Long parentApplicationId) {
-        return getApplication(Objects.requireNonNullElse(id, parentApplicationId));
     }
 
     @Override
