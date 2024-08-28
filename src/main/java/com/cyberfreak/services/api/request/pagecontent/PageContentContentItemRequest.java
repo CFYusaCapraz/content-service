@@ -1,4 +1,4 @@
-package com.cyberfreak.services.api.request;
+package com.cyberfreak.services.api.request.pagecontent;
 
 
 import lombok.AllArgsConstructor;
@@ -10,13 +10,9 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateContentItemRequest implements Serializable {
+public class PageContentContentItemRequest implements Serializable {
 
     private String key;
 
     private String value;
-
-    private Long applicationId;
-
-    private Long pageId;
 }

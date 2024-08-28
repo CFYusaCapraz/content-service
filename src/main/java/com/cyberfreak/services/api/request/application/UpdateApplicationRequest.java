@@ -1,4 +1,4 @@
-package com.cyberfreak.services.api.request;
+package com.cyberfreak.services.api.request.application;
 
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;

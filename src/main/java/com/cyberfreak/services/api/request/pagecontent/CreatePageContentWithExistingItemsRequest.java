@@ -1,4 +1,4 @@
-package com.cyberfreak.services.api.request;
+package com.cyberfreak.services.api.request.pagecontent;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatePageContentWithItemsRequest extends CreatePageContentRequest implements Serializable {
+public class CreatePageContentWithExistingItemsRequest extends CreatePageContentRequest implements Serializable {
 
-    private Set<CreateContentItemRequest> contentItems;
+    private Set<Long> contentItems;
 }

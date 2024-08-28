@@ -1,4 +1,4 @@
-package com.cyberfreak.services.api.request;
+package com.cyberfreak.services.api.request.pagecontent;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
