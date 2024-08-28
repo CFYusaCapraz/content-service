@@ -34,7 +34,8 @@ public class PageContentServiceImpl implements PageContentService {
     public PageContentDto createPageContent(CreatePageContentRequest request) {
         PageContentDto pageContentDto = pageContentMapper.toDto(request);
         try {
-            pageContentDto = pageContentRepository.saveAndFlush(new PageContent().fromDto(pageContentDto)).toDto();
+            PageContent pageContent = new PageContent().fromDto(pageContentDto, pageContentMapper);
+            pageContentDto = pageContentRepository.saveAndFlush(pageContent).toDto(pageContentMapper);
         } catch (Exception exception) {
             log.debug(exception.getMessage());
             throw new RuntimeException("Error occurred while creating page content");
@@ -44,12 +45,13 @@ public class PageContentServiceImpl implements PageContentService {
 
     @Override
     public PageContentDto addContentItemsToPageContent(Long id, AddContentItemsRequest request) {
-        PageContentDto pageContentDto = pageContentRepository.findById(id).orElseThrow(() -> new RuntimeException("Page content not found")).toDto();
+        PageContentDto pageContentDto = pageContentRepository.findById(id).orElseThrow(() -> new RuntimeException("Page content not found")).toDto(pageContentMapper);
         PageContentDto finalPageContentDto = pageContentDto;
         Set<ContentItemDto> contentItems = request.getContentItems().stream().map(o -> contentItemMapper.toDto(o, finalPageContentDto.getApplication().getId())).collect(Collectors.toSet());
         pageContentDto.getContentItems().addAll(contentItems);
         try {
-            pageContentDto = pageContentRepository.saveAndFlush(new PageContent().fromDto(pageContentDto)).toDto();
+            PageContent pageContent = new PageContent().fromDto(pageContentDto, pageContentMapper);
+            pageContentDto = pageContentRepository.saveAndFlush(pageContent).toDto(pageContentMapper);
         } catch (Exception exception) {
             log.debug(exception.getMessage());
             throw new RuntimeException("Error occurred while adding content items to page content");
@@ -61,7 +63,8 @@ public class PageContentServiceImpl implements PageContentService {
     public PageContentDto createPageContentWithContentItems(CreatePageContentWithItemsRequest request) {
         PageContentDto pageContentDto = pageContentMapper.toDto(request, request.getApplicationId());
         try {
-            pageContentDto = pageContentRepository.saveAndFlush(new PageContent().fromDto(pageContentDto)).toDto();
+            PageContent pageContent = new PageContent().fromDto(pageContentDto, pageContentMapper);
+            pageContentDto = pageContentRepository.saveAndFlush(pageContent).toDto(pageContentMapper);
         } catch (Exception exception) {
             log.debug(exception.getMessage());
             throw new RuntimeException("Error occurred while creating page content with new content items");
@@ -73,7 +76,8 @@ public class PageContentServiceImpl implements PageContentService {
     public PageContentDto createPageContentWithExistingContentItems(CreatePageContentWithExistingItemsRequest request) {
         PageContentDto pageContentDto = pageContentMapper.toDto(request);
         try {
-            pageContentDto = pageContentRepository.saveAndFlush(new PageContent().fromDto(pageContentDto)).toDto();
+            PageContent pageContent = new PageContent().fromDto(pageContentDto, pageContentMapper);
+            pageContentDto = pageContentRepository.saveAndFlush(pageContent).toDto(pageContentMapper);
         } catch (Exception exception) {
             log.debug(exception.getMessage());
             throw new RuntimeException("Error occurred while creating page content with existing content items");
@@ -83,12 +87,12 @@ public class PageContentServiceImpl implements PageContentService {
 
     @Override
     public List<PageContentDto> getPageContentList() {
-        return pageContentRepository.findAll().stream().map(PageContent::toDto).toList();
+        return pageContentRepository.findAll().stream().map(pageContent -> pageContent.toDto(pageContentMapper)).toList();
     }
 
     @Override
     public PageContentDto getPageContentByPageName(String pageName) {
         return pageContentRepository.findByPageName(pageName)
-                .orElseThrow(() -> new RuntimeException("Page content by page name not found")).toDto();
+                .orElseThrow(() -> new RuntimeException("Page content by page name not found")).toDto(pageContentMapper);
     }
 }

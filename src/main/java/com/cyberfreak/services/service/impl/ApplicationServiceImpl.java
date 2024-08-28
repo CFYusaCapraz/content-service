@@ -27,7 +27,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationDto getApplication(@NotNull Long id) {
-        return applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Application not found")).toDto();
+        return applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Application not found")).toDto(applicationMapper);
     }
 
     @Override
@@ -37,20 +37,20 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public List<ApplicationDto> getApplications() {
-        return applicationRepository.findAll().stream().map(Application::toDto).toList();
+        return applicationRepository.findAll().stream().map(application -> application.toDto(applicationMapper)).toList();
     }
 
     @Override
     public List<ApplicationDto> getApplicationsByNameAndLanguage(String name, String language) {
         return applicationRepository.findByNameIgnoreCaseAndLanguageIgnoreCase(name, language)
-                .stream().map(Application::toDto).toList();
+                .stream().map(application -> application.toDto(applicationMapper)).toList();
     }
 
     @Override
     public ApplicationDto createApplication(CreateApplicationRequest createApplicationRequest) {
         ApplicationDto applicationDto = applicationMapper.toDto(createApplicationRequest);
         try {
-            applicationDto = applicationRepository.saveAndFlush(new Application().fromDto(applicationDto)).toDto();
+            applicationDto = applicationRepository.saveAndFlush(new Application().fromDto(applicationDto, applicationMapper)).toDto(applicationMapper);
         } catch (Exception exception) {
             log.debug(exception.getMessage());
             throw new RuntimeException("Application creation failed");
@@ -64,7 +64,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         ApplicationDto applicationDto = applicationMapper.toDto(updateApplicationRequest);
         application = applicationMapper.partialUpdate(applicationDto, application);
         try {
-            applicationDto = applicationRepository.saveAndFlush(application).toDto();
+            applicationDto = applicationRepository.saveAndFlush(application).toDto(applicationMapper);
         } catch (Exception exception) {
             log.debug(exception.getMessage());
             throw new RuntimeException("Application update failed");

@@ -1,6 +1,7 @@
 package com.cyberfreak.services.service.impl;
 
 import com.cyberfreak.services.dto.ContentItemDto;
+import com.cyberfreak.services.mapper.ContentItemMapper;
 import com.cyberfreak.services.repository.ContentItemRepository;
 import com.cyberfreak.services.service.ContentItemService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,10 @@ public class ContentItemServiceImpl implements ContentItemService {
 
     private final ContentItemRepository contentItemRepository;
 
+    private final ContentItemMapper contentItemMapper;
+
     @Override
     public ContentItemDto getContentItem(@NotNull Long id) {
-        return contentItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Content item not found")).toDto();
+        return contentItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Content item not found")).toDto(contentItemMapper);
     }
 }
