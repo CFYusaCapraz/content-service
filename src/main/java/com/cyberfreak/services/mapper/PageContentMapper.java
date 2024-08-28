@@ -1,8 +1,8 @@
 package com.cyberfreak.services.mapper;
 
-import com.cyberfreak.services.api.request.CreatePageContentRequest;
-import com.cyberfreak.services.api.request.CreatePageContentWithExistingItemsRequest;
-import com.cyberfreak.services.api.request.CreatePageContentWithItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithExistingItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithItemsRequest;
 import com.cyberfreak.services.domain.PageContent;
 import com.cyberfreak.services.dto.PageContentDto;
 import com.cyberfreak.services.service.ApplicationService;
@@ -26,7 +26,22 @@ public interface PageContentMapper extends MapperBase<PageContent, PageContentDt
     @AfterMapping
     default void linkContentItems(PageContent pageContent, @MappingTarget @NotNull PageContentDto pageContentDto) {
         Optional.ofNullable(pageContentDto.getContentItems()).ifPresent(contentItemDtoSet ->
-                contentItemDtoSet.forEach(contentItem -> contentItem.setPage(pageContentDto)));
+                contentItemDtoSet.forEach(contentItemDto -> contentItemDto.setPage(pageContentDto)));
+    }
+
+    @AfterMapping
+    default void linkContentItems(CreatePageContentWithItemsRequest createPageContentWithItemsRequest, @MappingTarget @NotNull PageContentDto pageContentDto) {
+        Optional.ofNullable(pageContentDto.getContentItems()).ifPresent(contentItemDtoSet ->
+                contentItemDtoSet.forEach(contentItemDto -> {
+                    contentItemDto.setPage(pageContentDto);
+                    contentItemDto.setApplication(pageContentDto.getApplication());
+                }));
+    }
+
+    @AfterMapping
+    default void linkContentItems(CreatePageContentWithExistingItemsRequest createPageContentWithExistingItemsRequest, @MappingTarget @NotNull PageContentDto pageContentDto) {
+        Optional.ofNullable(pageContentDto.getContentItems()).ifPresent(contentItemDtoSet ->
+                contentItemDtoSet.forEach(contentItemDto -> contentItemDto.setPage(pageContentDto)));
     }
 
     @Override
@@ -43,8 +58,7 @@ public interface PageContentMapper extends MapperBase<PageContent, PageContentDt
     PageContentDto toDto(CreatePageContentRequest createPageContentRequest);
 
     @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
-    @Mapping(source = "contentItems", target = "contentItems", qualifiedByName = "mapCreateContentItemRequestToContentItemDtoWithContext")
-    PageContentDto toDto(CreatePageContentWithItemsRequest createPageContentWithItemsRequest, @Context Long pageContentApplicationId);
+    PageContentDto toDto(CreatePageContentWithItemsRequest createPageContentWithItemsRequest);
 
     @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
     @Mapping(source = "contentItems", target = "contentItems", qualifiedByName = "mapContentItemIdToContentItemDto")
