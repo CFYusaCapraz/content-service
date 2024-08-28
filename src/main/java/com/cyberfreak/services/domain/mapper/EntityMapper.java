@@ -1,8 +1,12 @@
 package com.cyberfreak.services.domain.mapper;
 
-public interface EntityMapper<Entity, DTO> {
+import com.cyberfreak.services.domain.base.BaseEntity;
+import com.cyberfreak.services.dto.base.BaseDto;
+import com.cyberfreak.services.mapper.MapperBase;
 
-    DTO toDto();
+public interface EntityMapper<Entity extends BaseEntity<Entity, DTO>, DTO extends BaseDto> {
 
-    Entity fromDto(DTO referenceDTO);
+    DTO toDto(MapperBase<Entity, DTO> entityMapper);
+
+    Entity fromDto(DTO referenceDTO, MapperBase<Entity, DTO> entityMapper);
 }

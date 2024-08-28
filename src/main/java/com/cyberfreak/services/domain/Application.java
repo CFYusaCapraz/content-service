@@ -2,7 +2,7 @@ package com.cyberfreak.services.domain;
 
 import com.cyberfreak.services.domain.base.AuditableEntity;
 import com.cyberfreak.services.dto.ApplicationDto;
-import com.cyberfreak.services.mapper.ApplicationMapper;
+import com.cyberfreak.services.mapper.MapperBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -22,12 +22,12 @@ public class Application extends AuditableEntity<Application, ApplicationDto> {
     private String language;
 
     @Override
-    public ApplicationDto toDto() {
-        return ApplicationMapper.INSTANCE.toDto(this);
+    public ApplicationDto toDto(MapperBase<Application, ApplicationDto> entityMapper) {
+        return entityMapper.toDto(this);
     }
 
     @Override
-    public Application fromDto(ApplicationDto referenceDTO) {
-        return ApplicationMapper.INSTANCE.toEntity(referenceDTO);
+    public Application fromDto(ApplicationDto referenceDTO, MapperBase<Application, ApplicationDto> entityMapper) {
+        return entityMapper.toEntity(referenceDTO);
     }
 }
