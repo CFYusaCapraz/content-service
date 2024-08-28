@@ -2,8 +2,8 @@ package com.cyberfreak.services.api.controller;
 
 import com.cyberfreak.services.api.constants.ApiEndpoints;
 import com.cyberfreak.services.api.constants.ApiPaths;
-import com.cyberfreak.services.api.request.CreateApplicationRequest;
-import com.cyberfreak.services.api.request.UpdateApplicationRequest;
+import com.cyberfreak.services.api.request.application.CreateApplicationRequest;
+import com.cyberfreak.services.api.request.application.UpdateApplicationRequest;
 import com.cyberfreak.services.api.response.BaseResponse;
 import com.cyberfreak.services.api.response.ListResultResponse;
 import com.cyberfreak.services.api.response.SaveEntityResponse;

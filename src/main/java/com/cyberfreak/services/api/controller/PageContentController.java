@@ -2,10 +2,10 @@ package com.cyberfreak.services.api.controller;
 
 import com.cyberfreak.services.api.constants.ApiEndpoints;
 import com.cyberfreak.services.api.constants.ApiPaths;
-import com.cyberfreak.services.api.request.AddContentItemsRequest;
-import com.cyberfreak.services.api.request.CreatePageContentRequest;
-import com.cyberfreak.services.api.request.CreatePageContentWithExistingItemsRequest;
-import com.cyberfreak.services.api.request.CreatePageContentWithItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.AddContentItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithExistingItemsRequest;
+import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithItemsRequest;
 import com.cyberfreak.services.api.response.ListResultResponse;
 import com.cyberfreak.services.api.response.SaveEntityResponse;
 import com.cyberfreak.services.api.response.SingleResultResponse;
