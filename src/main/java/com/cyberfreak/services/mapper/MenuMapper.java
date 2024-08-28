@@ -4,23 +4,26 @@ import com.cyberfreak.services.domain.Menu;
 import com.cyberfreak.services.dto.MenuDto;
 import org.jetbrains.annotations.NotNull;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
+
+import java.util.Optional;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING,
         uses = {ApplicationMapper.class, MenuItemMapper.class})
-public interface MenuMapper {
-
-    MenuMapper INSTANCE = Mappers.getMapper(MenuMapper.class);
+public interface MenuMapper extends MapperBase<Menu, MenuDto> {
 
     @AfterMapping
     default void linkMenuItems(@MappingTarget @NotNull Menu menu) {
-        menu.getMenuItems().forEach(menuItem -> menuItem.setMenu(menu));
+        Optional.ofNullable(menu.getMenuItems()).ifPresent(menuItems ->
+                menuItems.forEach(menuItem -> menuItem.setMenu(menu)));
     }
 
+    @Override
     Menu toEntity(MenuDto menuDto);
 
+    @Override
     MenuDto toDto(Menu menu);
 
+    @Override
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Menu partialUpdate(MenuDto menuDto, @MappingTarget Menu menu);
 }

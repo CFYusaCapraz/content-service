@@ -5,19 +5,18 @@ import com.cyberfreak.services.domain.ContentItem;
 import com.cyberfreak.services.dto.ContentItemDto;
 import com.cyberfreak.services.service.ApplicationService;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
-import org.springframework.context.annotation.Lazy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "springlazy",
         uses = {ApplicationService.class, ApplicationMapper.class, PageContentMapper.class})
-public interface ContentItemMapper {
+public interface ContentItemMapper extends MapperBase<ContentItem, ContentItemDto> {
 
-    ContentItemMapper INSTANCE = Mappers.getMapper(ContentItemMapper.class);
-
+    @Override
     ContentItem toEntity(ContentItemDto contentItemDto);
 
+    @Override
     ContentItemDto toDto(ContentItem contentItem);
 
+    @Override
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     ContentItem partialUpdate(ContentItemDto contentItemDto, @MappingTarget ContentItem contentItem);
 
