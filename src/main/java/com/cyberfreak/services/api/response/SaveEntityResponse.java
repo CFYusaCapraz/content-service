@@ -1,15 +1,18 @@
 package com.cyberfreak.services.api.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class SaveEntityResponse {
+@Getter
+@Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class SaveEntityResponse extends BaseResponse {
 
     private Long entityId;
+
+    public SaveEntityResponse(Long entityId) {
+        super(true);
+        this.entityId = entityId;
+    }
 }
