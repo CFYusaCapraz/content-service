@@ -1,4 +1,4 @@
-package com.cyberfreak.services.api.response;
+package com.cyberfreak.services.api.response.base;
 
 import com.cyberfreak.services.dto.base.BaseDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

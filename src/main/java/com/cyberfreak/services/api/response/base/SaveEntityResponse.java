@@ -1,4 +1,4 @@
-package com.cyberfreak.services.api.response;
+package com.cyberfreak.services.api.response.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
