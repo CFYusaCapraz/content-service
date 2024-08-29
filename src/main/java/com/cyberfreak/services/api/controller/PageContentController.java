@@ -42,19 +42,6 @@ public class PageContentController {
         return new SaveEntityResponse(pageContentDto.getId());
     }
 
-    @Tag(name = "U(pdate) Operations", description = "These APIs update an already existing Page Content")
-    @Operation(summary = "Add new content items to page content",
-            description = "This API is implemented if the user wants to add content items to already existing page content. " +
-                    "The content items' application will be set to page content's application")
-    @PutMapping(path = ApiPaths.ADD_CONTENT_ITEMS_PATH)
-    public SaveEntityResponse addContentItemsToPageContent(
-            @Parameter(description = "ID of the page content you want to update", example = "1")
-            @PathVariable(ApiPaths.PAGE_CONTENT_ID) Long id,
-            @RequestBody AddContentItemsRequest request) {
-        PageContentDto pageContentDto = pageContentService.addContentItemsToPageContent(id, request);
-        return new SaveEntityResponse(pageContentDto.getId());
-    }
-
     @Tag(name = "C(reate) Operations", description = "These APIs create a new Page Content")
     @Operation(summary = "Creating new page content with new content items",
             description = "This API is implemented if the user wants to create page content with its content items")
@@ -94,5 +81,18 @@ public class PageContentController {
         PageContentDto pageContentDto = pageContentService.getPageContentByPageName(pageName);
         PageContentResponse response = pageContentMapper.toResponse(pageContentDto);
         return new SingleResultResponse<>(response);
+    }
+
+    @Tag(name = "U(pdate) Operations", description = "These APIs update an already existing Page Content")
+    @Operation(summary = "Add new content items to page content",
+            description = "This API is implemented if the user wants to add content items to already existing page content. " +
+                    "The content items' application will be set to page content's application")
+    @PutMapping(path = ApiPaths.ADD_CONTENT_ITEMS_PATH)
+    public SaveEntityResponse addContentItemsToPageContent(
+            @Parameter(description = "ID of the page content you want to update", example = "1")
+            @PathVariable(ApiPaths.PAGE_CONTENT_ID) Long id,
+            @RequestBody AddContentItemsRequest request) {
+        PageContentDto pageContentDto = pageContentService.addContentItemsToPageContent(id, request);
+        return new SaveEntityResponse(pageContentDto.getId());
     }
 }
