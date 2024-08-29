@@ -16,6 +16,10 @@ import com.cyberfreak.services.service.PageContentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +41,7 @@ public class PageContentController {
     @Operation(summary = "Creating new page content without any content items",
             description = "This API is implemented if the user wants to create page content first then add content items")
     @PostMapping
-    public SaveEntityResponse createPageContent(@RequestBody CreatePageContentRequest request) {
+    public SaveEntityResponse createPageContent(@Valid @RequestBody CreatePageContentRequest request) {
         PageContentDto pageContentDto = pageContentService.createPageContent(request);
         return new SaveEntityResponse(pageContentDto.getId());
     }
@@ -46,7 +50,7 @@ public class PageContentController {
     @Operation(summary = "Creating new page content with new content items",
             description = "This API is implemented if the user wants to create page content with its content items")
     @PostMapping(path = ApiPaths.CREATE_WITH_CONTENT_ITEMS_PATH)
-    public SaveEntityResponse createPageContentWithContentItems(@RequestBody CreatePageContentWithItemsRequest request) {
+    public SaveEntityResponse createPageContentWithContentItems(@Valid @RequestBody CreatePageContentWithItemsRequest request) {
         PageContentDto pageContentDto = pageContentService.createPageContentWithContentItems(request);
         return new SaveEntityResponse(pageContentDto.getId());
     }
@@ -55,7 +59,7 @@ public class PageContentController {
     @Operation(summary = "Creating new page content with existing content items",
             description = "This API is implemented if the user wants to create page content with previously created content items")
     @PostMapping(path = ApiPaths.CREATE_WITH_EXISTING_CONTENT_ITEMS_PATH)
-    public SaveEntityResponse createPageContentWithExistingContentItems(@RequestBody CreatePageContentWithExistingItemsRequest request) {
+    public SaveEntityResponse createPageContentWithExistingContentItems(@Valid @RequestBody CreatePageContentWithExistingItemsRequest request) {
         PageContentDto pageContentDto = pageContentService.createPageContentWithExistingContentItems(request);
         return new SaveEntityResponse(pageContentDto.getId());
     }
@@ -77,7 +81,7 @@ public class PageContentController {
     @GetMapping(path = ApiPaths.PAGE_CONTENT_BY_NAME_PATH)
     public SingleResultResponse<PageContentResponse> getPageContentByPageName(
             @Parameter(description = "Page Name of the page content you want to retrieve", example = "HomePage")
-            @PathVariable(ApiPaths.PAGE_NAME) String pageName) {
+            @NotBlank @PathVariable(ApiPaths.PAGE_NAME) String pageName) {
         PageContentDto pageContentDto = pageContentService.getPageContentByPageName(pageName);
         PageContentResponse response = pageContentMapper.toResponse(pageContentDto);
         return new SingleResultResponse<>(response);
@@ -90,8 +94,8 @@ public class PageContentController {
     @PutMapping(path = ApiPaths.ADD_CONTENT_ITEMS_PATH)
     public SaveEntityResponse addContentItemsToPageContent(
             @Parameter(description = "ID of the page content you want to update", example = "1")
-            @PathVariable(ApiPaths.PAGE_CONTENT_ID) Long id,
-            @RequestBody AddContentItemsRequest request) {
+            @NotNull @Positive @PathVariable(ApiPaths.PAGE_CONTENT_ID) Long id,
+            @Valid @RequestBody AddContentItemsRequest request) {
         PageContentDto pageContentDto = pageContentService.addContentItemsToPageContent(id, request);
         return new SaveEntityResponse(pageContentDto.getId());
     }
