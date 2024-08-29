@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -29,6 +30,7 @@ public class PageContentResponse extends AuditableDto implements Serializable {
     private ApplicationLightResponse application;
 
     @NotNull
+    @Size
     @Valid
     private Set<ContentItemLightResponse> contentItems;
 }
