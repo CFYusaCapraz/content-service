@@ -2,6 +2,7 @@ package com.cyberfreak.services.mapper;
 
 import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.api.request.pagecontent.PageContentContentItemRequest;
+import com.cyberfreak.services.api.response.light.ContentItemLightResponse;
 import com.cyberfreak.services.domain.ContentItem;
 import com.cyberfreak.services.dto.ContentItemDto;
 import com.cyberfreak.services.service.ApplicationService;
@@ -24,4 +25,7 @@ public interface ContentItemMapper extends MapperBase<ContentItem, ContentItemDt
     @Mapping(source = "key", target = "resourceMap.resourceKey")
     @Mapping(source = "value", target = "resourceMap.resourceValue")
     ContentItemDto toDto(PageContentContentItemRequest pageContentContentItemRequest);
+
+    @Mapping(target = "application", source = "application.id")
+    ContentItemLightResponse toResponse(ContentItemDto contentItemDto);
 }

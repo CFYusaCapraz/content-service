@@ -3,6 +3,7 @@ package com.cyberfreak.services.mapper;
 import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.api.request.application.CreateApplicationRequest;
 import com.cyberfreak.services.api.request.application.UpdateApplicationRequest;
+import com.cyberfreak.services.api.response.light.ApplicationLightResponse;
 import com.cyberfreak.services.domain.Application;
 import com.cyberfreak.services.dto.ApplicationDto;
 import org.mapstruct.*;
@@ -23,4 +24,6 @@ public interface ApplicationMapper extends MapperBase<Application, ApplicationDt
     ApplicationDto toDto(CreateApplicationRequest createApplicationRequest);
 
     ApplicationDto toDto(UpdateApplicationRequest updateApplicationRequest);
+
+    ApplicationLightResponse toResponse(ApplicationDto applicationDto);
 }

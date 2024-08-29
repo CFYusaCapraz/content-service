@@ -6,10 +6,12 @@ import com.cyberfreak.services.api.request.pagecontent.AddContentItemsRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithExistingItemsRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithItemsRequest;
+import com.cyberfreak.services.api.response.PageContentResponse;
 import com.cyberfreak.services.api.response.base.ListResultResponse;
 import com.cyberfreak.services.api.response.base.SaveEntityResponse;
 import com.cyberfreak.services.api.response.base.SingleResultResponse;
 import com.cyberfreak.services.dto.PageContentDto;
+import com.cyberfreak.services.mapper.PageContentMapper;
 import com.cyberfreak.services.service.PageContentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,8 @@ import java.util.List;
 public class PageContentController {
 
     private final PageContentService pageContentService;
+
+    private final PageContentMapper pageContentMapper;
 
     @PostMapping
     public SaveEntityResponse createPageContent(@RequestBody CreatePageContentRequest request) {
@@ -51,14 +55,16 @@ public class PageContentController {
     }
 
     @GetMapping
-    public ListResultResponse<PageContentDto> getPageContentList() {
+    public ListResultResponse<PageContentResponse> getPageContentList() {
         List<PageContentDto> pageContentDtoList = pageContentService.getPageContentList();
-        return new ListResultResponse<>(pageContentDtoList);
+        List<PageContentResponse> responseList = pageContentDtoList.stream().map(pageContentMapper::toResponse).toList();
+        return new ListResultResponse<>(responseList);
     }
 
     @GetMapping(path = ApiPaths.PAGE_CONTENT_BY_NAME_PATH)
-    public SingleResultResponse<PageContentDto> getPageContentByPageName(@PathVariable(ApiPaths.PAGE_NAME) String pageName) {
+    public SingleResultResponse<PageContentResponse> getPageContentByPageName(@PathVariable(ApiPaths.PAGE_NAME) String pageName) {
         PageContentDto pageContentDto = pageContentService.getPageContentByPageName(pageName);
-        return new SingleResultResponse<>(pageContentDto);
+        PageContentResponse response = pageContentMapper.toResponse(pageContentDto);
+        return new SingleResultResponse<>(response);
     }
 }

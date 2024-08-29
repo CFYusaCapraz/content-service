@@ -4,6 +4,7 @@ import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithExistingItemsRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithItemsRequest;
+import com.cyberfreak.services.api.response.PageContentResponse;
 import com.cyberfreak.services.domain.PageContent;
 import com.cyberfreak.services.dto.PageContentDto;
 import com.cyberfreak.services.service.ApplicationService;
@@ -64,4 +65,6 @@ public interface PageContentMapper extends MapperBase<PageContent, PageContentDt
     @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDto")
     @Mapping(source = "contentItems", target = "contentItems", qualifiedByName = "mapContentItemIdToContentItemDto")
     PageContentDto toDto(CreatePageContentWithExistingItemsRequest createPageContentWithExistingItemsRequest);
+
+    PageContentResponse toResponse(PageContentDto pageContentDto);
 }
