@@ -1,11 +1,9 @@
 package com.cyberfreak.services.service;
 
-import com.cyberfreak.services.api.request.CreateApplicationRequest;
-import com.cyberfreak.services.api.request.UpdateApplicationRequest;
+import com.cyberfreak.services.api.request.application.CreateApplicationRequest;
+import com.cyberfreak.services.api.request.application.UpdateApplicationRequest;
 import com.cyberfreak.services.dto.ApplicationDto;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.mapstruct.Context;
 import org.mapstruct.Named;
 
 import java.util.List;
@@ -14,9 +12,6 @@ public interface ApplicationService {
 
     @Named("mapApplicationIdToApplicationDto")
     ApplicationDto getApplication(@NotNull Long id);
-
-    @Named("mapApplicationIdToApplicationDtoWithContext")
-    ApplicationDto getApplication(@Nullable Long id, @NotNull @Context Long parentApplicationId);
 
     List<ApplicationDto> getApplications();
 

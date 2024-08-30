@@ -1,5 +1,7 @@
-package com.cyberfreak.services.api.request;
+package com.cyberfreak.services.api.request.pagecontent;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,5 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class CreatePageContentWithExistingItemsRequest extends CreatePageContentRequest implements Serializable {
 
+    @NotNull
+    @Size(min = 1)
     private Set<Long> contentItems;
 }

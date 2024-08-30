@@ -3,6 +3,7 @@ package com.cyberfreak.services.domain.base;
 import com.cyberfreak.services.domain.listeners.BaseEntityListener;
 import com.cyberfreak.services.domain.mapper.EntityMapper;
 import com.cyberfreak.services.dto.base.BaseDto;
+import com.cyberfreak.services.mapper.MapperBase;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,8 +30,8 @@ public abstract class BaseEntity<Entity extends BaseEntity<Entity, DTO>, DTO ext
     protected Boolean isDeleted = Boolean.FALSE;
 
     @Override
-    public abstract DTO toDto();
+    public abstract DTO toDto(MapperBase<Entity, DTO> entityMapper);
 
     @Override
-    public abstract Entity fromDto(DTO referenceDTO);
+    public abstract Entity fromDto(DTO referenceDTO, MapperBase<Entity, DTO> entityMapper);
 }

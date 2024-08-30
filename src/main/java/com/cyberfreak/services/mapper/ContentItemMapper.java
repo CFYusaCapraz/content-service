@@ -1,29 +1,31 @@
 package com.cyberfreak.services.mapper;
 
-import com.cyberfreak.services.api.request.CreateContentItemRequest;
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
+import com.cyberfreak.services.api.request.pagecontent.PageContentContentItemRequest;
+import com.cyberfreak.services.api.response.light.ContentItemLightResponse;
 import com.cyberfreak.services.domain.ContentItem;
 import com.cyberfreak.services.dto.ContentItemDto;
 import com.cyberfreak.services.service.ApplicationService;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
-import org.springframework.context.annotation.Lazy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "springlazy",
         uses = {ApplicationService.class, ApplicationMapper.class, PageContentMapper.class})
-public interface ContentItemMapper {
+public interface ContentItemMapper extends MapperBase<ContentItem, ContentItemDto> {
 
-    ContentItemMapper INSTANCE = Mappers.getMapper(ContentItemMapper.class);
+    @Override
+    ContentItem toEntity(ContentItemDto contentItemDto, @Context CycleAvoidingMappingContext context);
 
-    ContentItem toEntity(ContentItemDto contentItemDto);
+    @Override
+    ContentItemDto toDto(ContentItem contentItem, @Context CycleAvoidingMappingContext context);
 
-    ContentItemDto toDto(ContentItem contentItem);
-
+    @Override
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    ContentItem partialUpdate(ContentItemDto contentItemDto, @MappingTarget ContentItem contentItem);
+    ContentItem partialUpdate(ContentItemDto contentItemDto, @MappingTarget ContentItem contentItem, @Context CycleAvoidingMappingContext context);
 
-    @Named("mapCreateContentItemRequestToContentItemDtoWithContext")
     @Mapping(source = "key", target = "resourceMap.resourceKey")
     @Mapping(source = "value", target = "resourceMap.resourceValue")
-    @Mapping(source = "applicationId", target = "application", qualifiedByName = "mapApplicationIdToApplicationDtoWithContext")
-    ContentItemDto toDto(CreateContentItemRequest createContentItemRequest, @Context Long applicationId);
+    ContentItemDto toDto(PageContentContentItemRequest pageContentContentItemRequest);
+
+    @Mapping(target = "application", source = "application.id")
+    ContentItemLightResponse toResponse(ContentItemDto contentItemDto);
 }

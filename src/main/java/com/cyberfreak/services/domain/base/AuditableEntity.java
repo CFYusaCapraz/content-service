@@ -3,6 +3,7 @@ package com.cyberfreak.services.domain.base;
 import com.cyberfreak.services.domain.listeners.AuditableEntityListener;
 import com.cyberfreak.services.domain.mapper.EntityMapper;
 import com.cyberfreak.services.dto.base.AuditableDto;
+import com.cyberfreak.services.mapper.MapperBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -36,7 +37,9 @@ public abstract class AuditableEntity<Entity extends AuditableEntity<Entity, DTO
     @Column(name = "deleted_by", updatable = false)
     protected String deletedBy;
 
-    public abstract DTO toDto();
+    @Override
+    public abstract DTO toDto(MapperBase<Entity, DTO> entityMapper);
 
-    public abstract Entity fromDto(DTO referenceDTO);
+    @Override
+    public abstract Entity fromDto(DTO referenceDTO, MapperBase<Entity, DTO> entityMapper);
 }

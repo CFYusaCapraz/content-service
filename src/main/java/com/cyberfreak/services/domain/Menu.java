@@ -1,8 +1,9 @@
 package com.cyberfreak.services.domain;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.domain.base.AuditableEntity;
 import com.cyberfreak.services.dto.MenuDto;
-import com.cyberfreak.services.mapper.MenuMapper;
+import com.cyberfreak.services.mapper.MapperBase;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,12 +26,12 @@ public class Menu extends AuditableEntity<Menu, MenuDto> {
     private List<MenuItem> menuItems;
 
     @Override
-    public MenuDto toDto() {
-        return MenuMapper.INSTANCE.toDto(this);
+    public MenuDto toDto(MapperBase<Menu, MenuDto> entityMapper) {
+        return entityMapper.toDto(this, new CycleAvoidingMappingContext());
     }
 
     @Override
-    public Menu fromDto(MenuDto referenceDTO) {
-        return MenuMapper.INSTANCE.toEntity(referenceDTO);
+    public Menu fromDto(MenuDto referenceDTO, MapperBase<Menu, MenuDto> entityMapper) {
+        return entityMapper.toEntity(referenceDTO, new CycleAvoidingMappingContext());
     }
 }
