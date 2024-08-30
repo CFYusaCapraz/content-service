@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: content-service
+  datasource:
+    username: ${PSQL_DB_USERNAME}
+    password: ${PSQL_DB_PASSWORD}
+    url: jdbc:postgresql://${PSQL_DB_SERVER_HOST}:${PSQL_DB_SERVER_PORT}/${PSQL_DB_NAME}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+  jackson:
+    default-property-inclusion: non_null
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
