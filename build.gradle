@@ -1,7 +1,12 @@
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
 plugins {
     id 'java'
+    id 'war'
     id 'org.springframework.boot' version '3.3.3'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'com.bmuschko.docker-spring-boot-application' version '9.4.0'
 }
 
 group = 'com.cyberfreak.services'
@@ -11,6 +16,10 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+bootWar {
+    archiveFileName = "${rootProject.name}.war"
 }
 
 configurations {
@@ -45,4 +54,34 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.register('syncWar', Sync) {
+    group 'docker-build'
+    def cleanTask = tasks.named('clean').get()
+    def assembleTask = tasks.named('assemble').get()
+    dependsOn cleanTask, assembleTask
+    assembleTask.mustRunAfter cleanTask
+    from bootWar.archiveFile
+    into createDockerfile.destDir
+}
+
+tasks.register('createDockerfile', Dockerfile) {
+    group 'docker-build'
+    dependsOn syncWar
+    from('amazoncorretto:17-alpine-jdk')
+    workingDir '/app'
+    copyFile bootWar.archiveFileName.get(), '.'
+    entryPoint 'java'
+    defaultCommand '-jar', "${bootWar.archiveFileName.get()}"
+    exposePort 8080
+    runCommand 'apk --update --no-cache add curl'
+    instruction "HEALTHCHECK CMD curl -f http://localhost:8080/health || exit 1"
+}
+
+tasks.register('buildAppImage', DockerBuildImage) {
+    group 'docker-build'
+    dependsOn 'createDockerfile'
+    images.add("cyberfreak/${rootProject.name}:${version}")
+    images.add("cyberfreak/${rootProject.name}:latest")
 }
