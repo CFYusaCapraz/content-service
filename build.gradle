@@ -1,5 +1,5 @@
-import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 plugins {
     id 'java'
@@ -71,9 +71,7 @@ tasks.register('createDockerfile', Dockerfile) {
     group 'docker-build'
     dependsOn syncWar
 
-    String defaultActiveProfile = providers.provider {
-        getPropertyValue('defaultActiveProfile', 'default')
-    }
+    String defaultActiveProfile = getPropertyValue('defaultActiveProfile', 'default')
 
     from('amazoncorretto:17-alpine-jdk')
     workingDir '/app'
@@ -93,7 +91,7 @@ tasks.register('buildAppImage', DockerBuildImage) {
 }
 
 String getPropertyValue(String propertyName, String defaultValue) {
-    if (!defaultValue){
+    if (!defaultValue) {
         throw new IllegalArgumentException("Default value must be provided")
     }
     def value = System.getProperty(propertyName)
