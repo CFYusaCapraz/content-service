@@ -9,6 +9,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  liquibase:
+    change-log: classpath:db/postgres/changelog-master.yaml
+    enabled: false
   jackson:
     default-property-inclusion: non_null
 
