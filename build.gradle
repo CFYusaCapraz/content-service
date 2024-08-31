@@ -59,8 +59,8 @@ tasks.named('test') {
 
 tasks.register('syncWar', Sync) {
     group 'docker-build'
-    def cleanTask = tasks.named('clean').get()
-    def assembleTask = tasks.named('assemble').get()
+    Task cleanTask = tasks.named('clean').get()
+    Task assembleTask = tasks.named('assemble').get()
     dependsOn cleanTask, assembleTask
     assembleTask.mustRunAfter cleanTask
     from bootWar.archiveFile
@@ -75,9 +75,10 @@ tasks.register('createDockerfile', Dockerfile) {
 
     from('amazoncorretto:17-alpine-jdk')
     workingDir '/app'
+    environmentVariable 'ACTIVE_PROFILE', defaultActiveProfile
     copyFile bootWar.archiveFileName.get(), '.'
     entryPoint 'java'
-    defaultCommand '-jar', "${bootWar.archiveFileName.get()}", "--spring.profiles.active=${defaultActiveProfile}"
+    defaultCommand '-jar', "${bootWar.archiveFileName.get()}", '--spring.profiles.active=${ACTIVE_PROFILE}'
     exposePort 8080
     runCommand 'apk --update --no-cache add curl'
     instruction "HEALTHCHECK CMD curl -f http://localhost:8080/health || exit 1"
@@ -94,7 +95,7 @@ String getPropertyValue(String propertyName, String defaultValue) {
     if (!defaultValue) {
         throw new IllegalArgumentException("Default value must be provided")
     }
-    def value = System.getProperty(propertyName)
+    String value = System.getProperty(propertyName)
 
     if (!value) {
         value = project.hasProperty(propertyName) ? project.property(propertyName) : null
