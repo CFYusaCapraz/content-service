@@ -10,6 +10,9 @@ spring:
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.H2Dialect
+  liquibase:
+    change-log: classpath:db/h2/changelog-master.yaml
+    enabled: true
   jackson:
     default-property-inclusion: non_null
 
