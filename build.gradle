@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0'
     annotationProcessor 'io.github.anweber:mapstruct-springlazy:1.0.0'
@@ -69,11 +70,16 @@ tasks.register('syncWar', Sync) {
 tasks.register('createDockerfile', Dockerfile) {
     group 'docker-build'
     dependsOn syncWar
+
+    String defaultActiveProfile = providers.provider {
+        getPropertyValue('defaultActiveProfile', 'default')
+    }
+
     from('amazoncorretto:17-alpine-jdk')
     workingDir '/app'
     copyFile bootWar.archiveFileName.get(), '.'
     entryPoint 'java'
-    defaultCommand '-jar', "${bootWar.archiveFileName.get()}"
+    defaultCommand '-jar', "${bootWar.archiveFileName.get()}", "--spring.profiles.active=${defaultActiveProfile}"
     exposePort 8080
     runCommand 'apk --update --no-cache add curl'
     instruction "HEALTHCHECK CMD curl -f http://localhost:8080/health || exit 1"
@@ -84,4 +90,17 @@ tasks.register('buildAppImage', DockerBuildImage) {
     dependsOn 'createDockerfile'
     images.add("cyberfreak/${rootProject.name}:${version}")
     images.add("cyberfreak/${rootProject.name}:latest")
+}
+
+String getPropertyValue(String propertyName, String defaultValue) {
+    if (!defaultValue){
+        throw new IllegalArgumentException("Default value must be provided")
+    }
+    def value = System.getProperty(propertyName)
+
+    if (!value) {
+        value = project.hasProperty(propertyName) ? project.property(propertyName) : null
+    }
+
+    return value ?: defaultValue
 }
