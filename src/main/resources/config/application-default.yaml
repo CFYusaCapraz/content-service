@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: content-service
+  datasource:
+    username: 'sa'
+    password: 'password'
+    url: jdbc:h2:mem:content
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:db/h2/changelog-master.yaml
+    enabled: true
+  jackson:
+    default-property-inclusion: non_null
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
