@@ -81,7 +81,7 @@ tasks.register('createDockerfile', Dockerfile) {
     defaultCommand '-jar', "${bootWar.archiveFileName.get()}", '--spring.profiles.active=${ACTIVE_PROFILE}'
     exposePort 8080
     runCommand 'apk --update --no-cache add curl'
-    instruction "HEALTHCHECK CMD curl -f http://localhost:8080/health || exit 1"
+    instruction "HEALTHCHECK CMD curl -f http://localhost:8080/actuator/health || exit 1"
 }
 
 tasks.register('buildAppImage', DockerBuildImage) {
