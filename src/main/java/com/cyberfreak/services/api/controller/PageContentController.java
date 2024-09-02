@@ -101,7 +101,7 @@ public class PageContentController {
         return new SaveEntityResponse(pageContentDto.getId());
     }
 
-    @Tag(name = "D(elete) Operations", description = "These APIs delete Application")
+    @Tag(name = "D(elete) Operations", description = "These APIs delete Page Content")
     @Operation(summary = "Delete page content by ID",
             description = "Delete page content by ID. This delete operation is soft. " +
                     "Meaning it will not delete the actual Page Content but, mark it as deleted")

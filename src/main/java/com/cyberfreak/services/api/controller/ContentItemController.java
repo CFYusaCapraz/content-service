@@ -25,7 +25,7 @@ public class ContentItemController {
 
     private final ContentItemService contentItemService;
 
-    @Tag(name = "C(reate) Operations", description = "These APIs create a new Application")
+    @Tag(name = "C(reate) Operations", description = "These APIs create a new Content Item")
     @Operation(summary = "Create new content item",
             description = "Create new content item")
     @PostMapping

@@ -14,14 +14,6 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     @Bean
-    public GroupedOpenApi contentApi() {
-        return GroupedOpenApi.builder()
-                .group("content-v1-content")
-                .displayName("Content API")
-                .pathsToMatch("/api/v1/*content*/**").build();
-    }
-
-    @Bean
     public GroupedOpenApi applicationApi() {
         return GroupedOpenApi.builder()
                 .group("content-v1-application")
