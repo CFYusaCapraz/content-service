@@ -21,4 +21,6 @@ public interface PageContentService {
     List<PageContentDto> getPageContentList();
 
     PageContentDto getPageContentByPageName(String pageName);
+
+    void deletePageContent(Long id);
 }

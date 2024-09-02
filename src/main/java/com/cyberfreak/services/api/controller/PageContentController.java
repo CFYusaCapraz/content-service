@@ -7,6 +7,7 @@ import com.cyberfreak.services.api.request.pagecontent.CreatePageContentRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithExistingItemsRequest;
 import com.cyberfreak.services.api.request.pagecontent.CreatePageContentWithItemsRequest;
 import com.cyberfreak.services.api.response.PageContentResponse;
+import com.cyberfreak.services.api.response.base.BaseResponse;
 import com.cyberfreak.services.api.response.base.ListResultResponse;
 import com.cyberfreak.services.api.response.base.SaveEntityResponse;
 import com.cyberfreak.services.api.response.base.SingleResultResponse;
@@ -98,5 +99,17 @@ public class PageContentController {
             @Valid @RequestBody AddContentItemsRequest request) {
         PageContentDto pageContentDto = pageContentService.addContentItemsToPageContent(id, request);
         return new SaveEntityResponse(pageContentDto.getId());
+    }
+
+    @Tag(name = "D(elete) Operations", description = "These APIs delete Application")
+    @Operation(summary = "Delete page content by ID",
+            description = "Delete page content by ID. This delete operation is soft. " +
+                    "Meaning it will not delete the actual Page Content but, mark it as deleted")
+    @PutMapping(path = ApiPaths.PAGE_CONTENT_ID_PATH)
+    public BaseResponse deletePageContent(
+            @Parameter(description = "ID of the page content you want to update", example = "1")
+            @NotNull @Positive @PathVariable(ApiPaths.PAGE_CONTENT_ID) Long id) {
+        pageContentService.deletePageContent(id);
+        return new BaseResponse(true);
     }
 }

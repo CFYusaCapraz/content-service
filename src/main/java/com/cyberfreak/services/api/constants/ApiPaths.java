@@ -13,6 +13,7 @@ public final class ApiPaths {
     public static final String PAGE_CONTENT_BY_NAME_PATH = "/{pageName}";
     public static final String APPLICATION_ID_PATH = "/{applicationId}";
     public static final String APPLICATION_SEARCH_PATH = "/search";
+    public static final String PAGE_CONTENT_ID_PATH = "/{pageContentId}";
 
     private ApiPaths() {
         throw new IllegalStateException("Utility class");
