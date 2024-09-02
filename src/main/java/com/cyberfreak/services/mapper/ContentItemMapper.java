@@ -33,6 +33,7 @@ public interface ContentItemMapper extends MapperBase<ContentItem, ContentItemDt
 
     @Mapping(target = "resourceMap.resourceKey", source = "key")
     @Mapping(target = "resourceMap.resourceValue", source = "value")
+    @Mapping(target = "application", source = "applicationId", qualifiedByName = "mapApplicationIdToApplicationDto")
     ContentItemDto toDto(CreateContentItemRequest createContentItemRequest);
 
     @Mapping(target = "application", source = "application.id")
