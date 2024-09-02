@@ -5,10 +5,14 @@ import com.cyberfreak.services.dto.ContentItemDto;
 import org.jetbrains.annotations.NotNull;
 import org.mapstruct.Named;
 
+import java.util.List;
+
 public interface ContentItemService {
 
     @Named("mapContentItemIdToContentItemDto")
     ContentItemDto getContentItem(@NotNull Long id);
 
     ContentItemDto createContentItem(CreateContentItemRequest createContentItemRequest);
+
+    List<ContentItemDto> getContentItems();
 }

@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,5 +38,10 @@ public class ContentItemServiceImpl implements ContentItemService {
             throw new RuntimeException("Content item creation failed");
         }
         return contentItemDto;
+    }
+
+    @Override
+    public List<ContentItemDto> getContentItems() {
+        return contentItemRepository.findAll().stream().map(contentItem -> contentItem.toDto(contentItemMapper)).toList();
     }
 }
