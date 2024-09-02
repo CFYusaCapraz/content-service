@@ -1,5 +1,7 @@
 package com.cyberfreak.services.service.impl;
 
+import com.cyberfreak.services.api.request.contentitem.CreateContentItemRequest;
+import com.cyberfreak.services.domain.ContentItem;
 import com.cyberfreak.services.dto.ContentItemDto;
 import com.cyberfreak.services.mapper.ContentItemMapper;
 import com.cyberfreak.services.repository.ContentItemRepository;
@@ -21,5 +23,18 @@ public class ContentItemServiceImpl implements ContentItemService {
     @Override
     public ContentItemDto getContentItem(@NotNull Long id) {
         return contentItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Content item not found")).toDto(contentItemMapper);
+    }
+
+    @Override
+    public ContentItemDto createContentItem(CreateContentItemRequest createContentItemRequest) {
+        ContentItemDto contentItemDto = contentItemMapper.toDto(createContentItemRequest);
+        try {
+            ContentItem contentItem = new ContentItem().fromDto(contentItemDto, contentItemMapper);
+            contentItemDto = contentItemRepository.saveAndFlush(contentItem).toDto(contentItemMapper);
+        } catch (Exception exception) {
+            log.debug(exception.getMessage());
+            throw new RuntimeException("Content item creation failed");
+        }
+        return contentItemDto;
     }
 }
