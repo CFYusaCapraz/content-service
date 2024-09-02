@@ -1,6 +1,8 @@
 package com.cyberfreak.services.service.impl;
 
+import com.cyberfreak.services.api.context.CycleAvoidingMappingContext;
 import com.cyberfreak.services.api.request.contentitem.CreateContentItemRequest;
+import com.cyberfreak.services.api.request.contentitem.UpdateContentItemRequest;
 import com.cyberfreak.services.domain.ContentItem;
 import com.cyberfreak.services.dto.ContentItemDto;
 import com.cyberfreak.services.mapper.ContentItemMapper;
@@ -43,5 +45,19 @@ public class ContentItemServiceImpl implements ContentItemService {
     @Override
     public List<ContentItemDto> getContentItems() {
         return contentItemRepository.findAll().stream().map(contentItem -> contentItem.toDto(contentItemMapper)).toList();
+    }
+
+    @Override
+    public ContentItemDto updateContentItem(Long id, UpdateContentItemRequest updateContentItemRequest) {
+        ContentItem contentItem = contentItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Content item not found"));
+        ContentItemDto contentItemDto = contentItemMapper.toDto(updateContentItemRequest);
+        contentItem = contentItemMapper.partialUpdate(contentItemDto, contentItem, new CycleAvoidingMappingContext());
+        try {
+            contentItemDto = contentItemRepository.saveAndFlush(contentItem).toDto(contentItemMapper);
+        } catch (Exception exception) {
+            log.debug(exception.getMessage());
+            throw new RuntimeException("Content item update failed");
+        }
+        return contentItemDto;
     }
 }
