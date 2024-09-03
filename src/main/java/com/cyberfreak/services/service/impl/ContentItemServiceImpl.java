@@ -60,4 +60,18 @@ public class ContentItemServiceImpl implements ContentItemService {
         }
         return contentItemDto;
     }
+
+    @Override
+    public void deleteContentItem(Long id) {
+        ContentItem contentItem = contentItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Content item not found"));
+        if (contentItem.getIsDeleted()) {
+            throw new RuntimeException("Content item is already deleted");
+        }
+        try {
+            contentItemRepository.delete(contentItem);
+        } catch (Exception exception) {
+            log.debug(exception.getMessage());
+            throw new RuntimeException("Content item update failed");
+        }
+    }
 }

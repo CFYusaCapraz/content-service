@@ -18,4 +18,6 @@ public interface ContentItemService {
     List<ContentItemDto> getContentItems();
 
     ContentItemDto updateContentItem(Long id, UpdateContentItemRequest updateContentItemRequest);
+
+    void deleteContentItem(Long id);
 }

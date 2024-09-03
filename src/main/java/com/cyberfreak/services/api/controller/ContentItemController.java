@@ -7,6 +7,7 @@ import com.cyberfreak.services.api.request.application.UpdateApplicationRequest;
 import com.cyberfreak.services.api.request.contentitem.CreateContentItemRequest;
 import com.cyberfreak.services.api.request.contentitem.UpdateContentItemRequest;
 import com.cyberfreak.services.api.response.ContentItemResponse;
+import com.cyberfreak.services.api.response.base.BaseResponse;
 import com.cyberfreak.services.api.response.base.ListResultResponse;
 import com.cyberfreak.services.api.response.base.SaveEntityResponse;
 import com.cyberfreak.services.dto.ContentItemDto;
@@ -66,5 +67,17 @@ public class ContentItemController {
             @Valid @RequestBody UpdateContentItemRequest updateContentItemRequest) {
         ContentItemDto contentItemDto = contentItemService.updateContentItem(id, updateContentItemRequest);
         return new SaveEntityResponse(contentItemDto.getId());
+    }
+
+    @Tag(name = "D(elete) Operations", description = "These APIs delete Content Item")
+    @Operation(summary = "Delete content item by ID",
+            description = "Delete content item by ID. This delete operation is soft. " +
+                    "Meaning it will not delete the actual content item but, mark it as deleted")
+    @DeleteMapping(path = ApiPaths.CONTENT_ITEM_ID_PATH)
+    public BaseResponse deleteContentItem(
+            @Parameter(description = "ID of the content item you want to retrieve. Must be not null and greater than zero")
+            @NotNull @Positive @PathVariable(ApiPaths.CONTENT_ITEM_ID) Long id) {
+        contentItemService.deleteContentItem(id);
+        return new BaseResponse(true);
     }
 }
