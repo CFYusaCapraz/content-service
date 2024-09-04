@@ -113,7 +113,7 @@ tasks.register("pushAppImage", DockerPushImage) {
 
 String getPropertyValue(String propertyName, String defaultValue) {
     if (!defaultValue) {
-        throw new IllegalArgumentException("Default value must be provided")
+        throw new IllegalArgumentException("Default value must be provided ($propertyName)")
     }
     String value = System.getProperty(propertyName)
 
