@@ -10,14 +10,13 @@ import com.cyberfreak.services.dto.PageContentDto;
 import com.cyberfreak.services.mapper.ContentItemMapper;
 import com.cyberfreak.services.mapper.PageContentMapper;
 import com.cyberfreak.services.repository.PageContentRepository;
-import com.cyberfreak.services.service.ContentItemService;
 import com.cyberfreak.services.service.PageContentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -106,5 +105,22 @@ public class PageContentServiceImpl implements PageContentService {
     public PageContentDto getPageContentByPageName(String pageName) {
         return pageContentRepository.findByPageName(pageName)
                 .orElseThrow(() -> new RuntimeException("Page content by page name not found")).toDto(pageContentMapper);
+    }
+
+    @Override
+    public void deletePageContent(Long id) {
+        PageContent pageContent = pageContentRepository.findById(id).orElseThrow(() -> new RuntimeException("Page content not found"));
+        try {
+            pageContentRepository.delete(pageContent);
+        } catch (Exception exception) {
+            log.debug(exception.getMessage());
+            throw new RuntimeException("Error occurred while deleting page content");
+        }
+    }
+
+    @Override
+    public PageContentDto getPageContentById(@NotNull Long id) {
+        return pageContentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Page content not found")).toDto(pageContentMapper);
     }
 }
