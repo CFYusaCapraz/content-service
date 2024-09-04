@@ -1,5 +1,6 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 
 plugins {
     id 'java'
@@ -88,13 +89,31 @@ tasks.register('createDockerfile', Dockerfile) {
 tasks.register('buildAppImage', DockerBuildImage) {
     group 'docker-build'
     dependsOn 'createDockerfile'
-    images.add("cyberfreak/${rootProject.name}:${version}")
-    images.add("cyberfreak/${rootProject.name}:latest")
+
+    String dockerNamespace = getPropertyValue('dockerNamespace', 'cfyusacapraz')
+    images.add("${dockerNamespace}/${rootProject.name}:${version}")
+    images.add("${dockerNamespace}/${rootProject.name}:latest")
+}
+
+tasks.register("pushAppImage", DockerPushImage) {
+    group 'docker-build'
+    dependsOn 'buildAppImage'
+
+    String dockerNamespace = getPropertyValue('dockerNamespace', 'cfyusacapraz')
+
+    registryCredentials {
+        url = getPropertyValue('dockerRepositoryUrl', "https://hub.docker.com/r/${dockerNamespace}/content-service")
+        username = getPropertyValue("dockerUsername", System.getenv('DOCKER_USERNAME'))
+        password = getPropertyValue("dockerPassword", System.getenv('DOCKER_PASSWORD'))
+        email = getPropertyValue('dockerEmail', System.getenv('DOCKER_EMAIL'))
+    }
+
+    images.add("${dockerNamespace}/${rootProject.name}:latest")
 }
 
 String getPropertyValue(String propertyName, String defaultValue) {
     if (!defaultValue) {
-        throw new IllegalArgumentException("Default value must be provided")
+        throw new IllegalArgumentException("Default value must be provided ($propertyName)")
     }
     String value = System.getProperty(propertyName)
 
