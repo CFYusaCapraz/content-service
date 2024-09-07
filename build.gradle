@@ -1,6 +1,6 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
-import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 plugins {
     id 'java'
@@ -103,23 +103,23 @@ tasks.register("pushAppImage", DockerPushImage) {
 
     registryCredentials {
         url = getPropertyValue('dockerRepositoryUrl', "https://hub.docker.com/r/${dockerNamespace}/content-service")
-        username = getPropertyValue("dockerUsername", System.getenv('DOCKER_USERNAME'))
-        password = getPropertyValue("dockerPassword", System.getenv('DOCKER_PASSWORD'))
-        email = getPropertyValue('dockerEmail', System.getenv('DOCKER_EMAIL'))
+        username = getPropertyValue("dockerUsername") ? getPropertyValue("dockerUsername") : System.getenv('DOCKER_USERNAME')
+        password = getPropertyValue("dockerPassword") ? getPropertyValue("dockerPassword") : System.getenv('DOCKER_PASSWORD')
+        email = getPropertyValue("dockerEmail") ? getPropertyValue("dockerEmail") : System.getenv('DOCKER_EMAIL')
     }
 
     images.add("${dockerNamespace}/${rootProject.name}:latest")
 }
 
-String getPropertyValue(String propertyName, String defaultValue) {
-    if (!defaultValue) {
-        throw new IllegalArgumentException("Default value must be provided ($propertyName)")
-    }
+String getPropertyValue(String propertyName, String defaultValue = '') {
     String value = System.getProperty(propertyName)
 
     if (!value) {
         value = project.hasProperty(propertyName) ? project.property(propertyName) : null
     }
 
+    if (defaultValue.isBlank()) {
+        throw new IllegalArgumentException("Default value must be provided ($propertyName)")
+    }
     return value ?: defaultValue
 }
