@@ -3,7 +3,6 @@ package com.cyberfreak.services.api.controller;
 
 import com.cyberfreak.services.api.constants.ApiEndpoints;
 import com.cyberfreak.services.api.constants.ApiPaths;
-import com.cyberfreak.services.api.request.application.UpdateApplicationRequest;
 import com.cyberfreak.services.api.request.contentitem.CreateContentItemRequest;
 import com.cyberfreak.services.api.request.contentitem.UpdateContentItemRequest;
 import com.cyberfreak.services.api.response.ContentItemResponse;
