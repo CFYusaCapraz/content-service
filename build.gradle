@@ -93,6 +93,7 @@ tasks.register('buildAppImage', DockerBuildImage) {
     String dockerNamespace = getPropertyValue('dockerNamespace', 'cfyusacapraz')
     images.add("${dockerNamespace}/${rootProject.name}:${version}")
     images.add("${dockerNamespace}/${rootProject.name}:latest")
+    remove = true
 }
 
 tasks.register("pushAppImage", DockerPushImage) {
