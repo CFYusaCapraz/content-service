@@ -118,7 +118,7 @@ String getPropertyValue(String propertyName, String defaultValue = '') {
         value = project.hasProperty(propertyName) ? project.property(propertyName) : null
     }
 
-    if (defaultValue.isBlank()) {
+    if (!defaultValue) {
         throw new IllegalArgumentException("Default value must be provided ($propertyName)")
     }
     return value ?: defaultValue
