@@ -11,10 +11,10 @@ public class UserIdInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String userId = request.getHeader("x-user-Id");
+        String userId = request.getHeader("x-user-id");
 
         if (userId == null || userId.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "x-user-Id header is required");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "x-user-id header is required");
             return false;
         }
 
