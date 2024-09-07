@@ -34,6 +34,8 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
     - name: Set executable flag on gradlew
       run: chmod +x ./gradlew
+    - name: Run tests
+      run: ./gradlew test
     - name: Build&Publish docker image to public registry
       run: ./gradlew pushAppImage
       env:
