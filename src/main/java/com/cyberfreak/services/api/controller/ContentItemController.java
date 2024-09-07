@@ -60,7 +60,7 @@ public class ContentItemController {
     @Operation(summary = "Update content item by ID",
             description = "Even though the HTTP method is PUT it behaves like a partial update(PATCH). " +
                     "So you can only provide the fields you want to update")
-    @GetMapping(path = ApiPaths.CONTENT_ITEM_ID_PATH)
+    @PutMapping(path = ApiPaths.CONTENT_ITEM_ID_PATH)
     public SaveEntityResponse updateContentItem(
             @Parameter(description = "ID of the content item you want to retrieve. Must be not null and greater than zero")
             @NotNull @Positive @PathVariable(ApiPaths.CONTENT_ITEM_ID) Long id,
